@@ -97,6 +97,9 @@
                                     <option value="women">Women</option>
                                     <option value="unisex">Unisex</option>
                                 </select>
+                                @error('sex')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
                             </div>
                         </div>
 

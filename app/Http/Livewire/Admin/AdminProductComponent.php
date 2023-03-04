@@ -61,7 +61,14 @@ class AdminProductComponent extends Component
         'form.product_category_id' => 'required',
         'form.name' => 'required',
         'form.price' => 'required',
-        // 'newImages' => 'image'
+        'newImages' => 'required',
+    ];
+    protected $messages = [
+        'form.brand_id.required' => 'Chưa chọn hãng',
+        'form.product_category_id.required' => 'Chưa chọn danh mục',
+        'form.name.required' => 'Trường tên sản phẩm là bắt buộc',
+        'form.price.required' => 'Trường giá là bắt buộc',
+        'newImages.required' => 'Chưa chọn hình ảnh cho sản phẩm',
     ];
     public function updated(){
         if(!empty($this->newImages )){

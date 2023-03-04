@@ -30,10 +30,13 @@
             </h2>
             <ul class="entry__meta">
               <li class="entry__meta-date">
-                <span class="entry__meta-label">date: </span>{{$blog->created_at}}
+                <span class="entry__meta-label">Ngày: </span>{{$blog->created_at}}
               </li>
               <li class="entry__meta-category">
-                <span class="entry__meta-label">categories: </span><a href="#">{{$blog->blogCategory->name}}</a>
+                <span class="entry__meta-label">Danh mục: </span><a href="#">{{$blog->blogCategory->name}}</a>
+              </li>
+              <li class="entry__meta-category">
+                <span class="entry__meta-label">Xem: </span><a href="#">{{$blog->view}}</a>
               </li>
             </ul>
           </div>
@@ -89,7 +92,7 @@
         </div> --}}
 
         <!-- Comments -->
-        @livewire('client.comment-blog-component',['blog' => $blog])
+        @livewire('client.blog-comment-component',['blog' => $blog])
         <!-- End Comments -->
 
 

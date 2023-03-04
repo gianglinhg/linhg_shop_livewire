@@ -112,10 +112,16 @@
                             @else
                             <h1 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h1>
                             @endif
-                            <div class="image" style="float: right;">
-                                @if(session()->has('messageImg'))
-                                <span class="text-danger">{{session()->get('messageImg')}}</span>
-                                @endif
+                            <div class="image"
+                                style="float: right; display: flex; justify-content:center; align-items:center">
+                                <div class="mr-1" style="display: flex; flex-direction: column">
+                                    @if(session()->has('messageImg'))
+                                    <small class=" text-danger">{{session()->get('messageImg')}}</small>
+                                    @endif
+                                    @error('newImages')
+                                    <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
                                 <label class="btn btn-primary waves-effect waves-light m-b-5">
                                     <i class="mdi mdi-image-area m-r-5"></i>
                                     @if($editMode)
@@ -148,37 +154,37 @@
                         </div>
 
                         <div class="row form-group">
-                            <label for="brand_id" class="col-md-2 text-md-right col-form-label">Brand</label>
+                            <label for="brand_id" class="col-md-2 text-md-right col-form-label">Hãng</label>
                             <div class="col-md-10 col-xl-8">
                                 <select name="brand_id" id="brand_id" class="form-control"
                                     wire:model.defer="form.brand_id">
-                                    <option value="0">-- Brand --</option>
+                                    <option value="0">Hãng</option>
                                     @foreach($brands as $brand)
                                     <option value="{{$brand->id}}">
                                         {{$brand->name}}
                                     </option>
                                     @endforeach
-                                    @error('form.brand_id')
-                                    <small class="text-danger">{{$message}}</small>
-                                    @enderror
                                 </select>
+                                @error('form.brand_id')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row form-group">
-                            <label for="product_category_id"
-                                class="col-md-2 text-md-right col-form-label">Category</label>
+                            <label for="product_category_id" class="col-md-2 text-md-right col-form-label">Danh
+                                mục</label>
                             <div class="col-md-10 col-xl-8">
                                 <select name="product_category_id" id="product_category_id" class="form-control"
                                     wire:model.defer='form.product_category_id'>
-                                    <option value="0">-- Category --</option>
+                                    <option value="0">Danh mục</option>
                                     @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
-                                    @error('form.product_category_id')
-                                    <small class="text-danger">{{$message}}</small>
-                                    @enderror
                                 </select>
+                                @error('form.product_category_id')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
                             </div>
                         </div>
 
@@ -207,7 +213,7 @@
                         <div class="row form-group">
                             <label for="discount" class="col-md-2 text-md-right col-form-label">Discount</label>
                             <div class="col-md-10 col-xl-8">
-                                <input name="discount" id="discount" placeholder="Discount" type="text"
+                                <input name="discount" id="discount" placeholder="Discount" type="number"
                                     class="form-control" value="" wire:model.defer="form.discount">
                                 @error('form.discount')
                                 <small class="text-danger">{{$message}}</small>
@@ -218,8 +224,8 @@
                         <div class="row form-group">
                             <label for="weight" class="col-md-2 text-md-right col-form-label">Weight</label>
                             <div class="col-md-10 col-xl-8">
-                                <input name="weight" id="weight" placeholder="Weight" type="text" class="form-control"
-                                    value="" wire:model.defer="form.weight">
+                                <input name="weight" id="weight" placeholder="Weight" type="nummber"
+                                    class="form-control" value="" wire:model.defer="form.weight">
                                 @error('form.weight')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror

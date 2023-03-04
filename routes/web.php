@@ -34,12 +34,13 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
 
 
 /* TODO:CLIENT */
-    Route::get('/', [MainController::class,'home']);
+    Route::get('/', [MainController::class,'index']);
+    Route::get('/home', [MainController::class,'home']);
     Route::get('/contact', [MainController::class,'contact'])->name('contact');
     Route::get('/about', [MainController::class,'about'])->name('about');
     Route::get('/cart.html', CartComponent::class)->name('cart');
-    Route::get('/wishlist.html', WishlistComponent::class)->name('wishlist');
-    Route::get('/checkout.html', CheckoutComponent::class)->name('checkout');
+    Route::get('/wishlist', WishlistComponent::class)->name('wishlist');
+    Route::get('/checkout', CheckoutComponent::class)->name('checkout');
     Route::get('/shop', ShopComponent::class)->name('shop.index');
     Route::get('/shop/{slug}.html', ProductDetailComponent::class)->name('shop.detail');
     Route::get('/blog', [BlogController::class,'index'])->name('blog.index');

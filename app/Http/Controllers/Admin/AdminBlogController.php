@@ -19,13 +19,18 @@ class AdminBlogController extends Controller
     }
     public function store(Request $request){
         $request->validate([
-            'blog_image' => 'required',
+            'blog_image' => 'required | image | size:2000',
             'blog_category_id' => 'required',
-            'title' => 'required',
-            'summary' => 'required',
+            'title' => 'required | max: 255',
             'content' => 'required'
         ],[
-
+            'blog_image.required' => 'Tin tức chưa có hình ảnh',
+            'blog_image.image' => 'File phải là hình ảnh',
+            'blog_image.size' => 'Kích thước tối đa là 2MB',
+            'blog_category_id.required' => 'Chưa chọn danh mục cho tin tức',
+            'title.required' => 'Chưa nhập tiêu đề chon tin tức',
+            'title.max' => 'Tối đa 255 kí tự',
+            'content.required' => 'Nội dung tin tức buộc phải có'
         ]);
         $slug = \Str::slug($request->title,'-');
         $image_file = $request->file('blog_image');

@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\BlogComment;
 use Auth;
 
-class CommentBlogComponent extends Component
+class BlogCommentComponent extends Component
 {
     public $comment = [];
     public $blog;
@@ -42,6 +42,6 @@ class CommentBlogComponent extends Component
     public function render()
     {
         $blogComments = BlogComment::where('blog_id', $this->blog->id)->orderBy('created_at', 'asc')->get();
-        return view('livewire.client.comment-blog-component',compact('blogComments'));
+        return view('livewire.client.blog-comment-component',compact('blogComments'));
     }
 }

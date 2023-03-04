@@ -20,23 +20,23 @@
       col-form-label">Danh mục</label>
     <div class="col-xl-8">
       <select name="blog_category_id" id="blog_category_id" class="form-control">
-        <option value="0">Category</option>
+        <option value="">Danh mục</option>
         @foreach($blogCategories as $blogCategory)
         <option value="{{$blogCategory->id}}">
           {{$blogCategory->name}}
         </option>
         @endforeach
       </select>
+      @error('blog_category_id')
+      <small class="text-danger">{{$message}}</small>
+      @enderror
     </div>
-    @error('blog_category_id')
-    <small class="text-danger">{{$message}}</small>
-    @enderror
   </div>
   <div class="row form-group">
     <label for="title" class="text-md-right col-form-label">Tiêu đề</label>
     <div class="col-xl-8">
       <input name="title" id="title" placeholder="Tiêu đề" type="text" class="form-control">
-      @error('name')
+      @error('title')
       <small class="text-danger">{{$message}}</small>
       @enderror
     </div>
@@ -45,7 +45,7 @@
   <div class="row form-group">
     <label for="summary" class="text-md-right col-form-label">Summary</label>
     <div class="col-xl-8">
-      <textarea class="form-control" name="summary" id="summary" placeholder="summary"></textarea>
+      <textarea class="form-control" name="summary" id="ckeditor-news-summary" placeholder="summary"></textarea>
       @error('summary')
       <small class="text-danger">{{$message}}</small>
       @enderror
@@ -54,7 +54,7 @@
   <div class="row form-group">
     <label for="content" class="text-md-right col-form-label">Content</label>
     <div class="col-xl-8">
-      <textarea class="form-control" name="content" id="ckeditor-new" placeholder="Content"></textarea>
+      <textarea class="form-control" name="content" id="ckeditor-news-content" placeholder="Content"></textarea>
       @error('content')
       <small class="text-danger">{{$message}}</small>
       @enderror
@@ -68,6 +68,14 @@
 @endsection
 @push('scripts')
 <script>
+  //CKEDITOR
+  CKEDITOR.replace('ckeditor-news-content', {
+  height: 300
+  });
+  CKEDITOR.replace('ckeditor-news-summary', {
+    height: 150
+  });
+
   var inputFile = document.getElementById('blog_image');
   var imagePreview = document.getElementById('image_preview');
 

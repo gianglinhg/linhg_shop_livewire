@@ -8,6 +8,9 @@ use App\Models\Product;
 
 class MainController extends Controller
 {
+    public function index(){
+        return redirect('/home');
+    }
     public function home(){
         return view('client.home');
     }

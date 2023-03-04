@@ -53,6 +53,7 @@ class ProductDetailComponent extends Component
     }
     public function mount($slug){
         $this->product = Product::with('productDetails')->where('slug', $slug)->first();
+        session()->put('product_id', $this->product->id);
     }
     public function render()
     {

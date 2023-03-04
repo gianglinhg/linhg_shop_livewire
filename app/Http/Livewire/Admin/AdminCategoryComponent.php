@@ -25,9 +25,10 @@ class AdminCategoryComponent extends Component
         'slug' => ['required',"regex:'^[a-z0-9]+(?:(?:-|_)+[a-z0-9]+)*$'"]
     ];
     protected $messages = [
-        'name.required' => 'Tên danh mục buộc nhập',
-        'slug.required' => 'Slug danh mục buộc nhập',
-        'slug.regex' => 'Slug không đúng định dạng'
+        'sex.required' => 'Giới tính buộc phải có',
+        'name.required' => 'Tên danh mục hãng buộc nhập',
+        'slug.required' => 'Đường dẫn danh mục buộc nhập',
+        'slug.regex' => 'Định dạng đường dẫn không đúng',
     ];
     public function generateSlug(){
         $this->slug = \Str::slug($this->name,'-');
@@ -52,6 +53,7 @@ class AdminCategoryComponent extends Component
         $this->reset();
     }
     public function showFormEdit($id){
+        $this->reset();
         $this->editMode = true;
         $this->dispatchBrowserEvent('show-form');
         $this->cates = ProductCategory::findOrFail($id);

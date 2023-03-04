@@ -71,6 +71,14 @@
 @endsection
 @push('scripts')
 <script>
+  //CKEDITOR
+   CKEDITOR.replace('ckeditor-news-content', {
+  height: 300
+  });
+  CKEDITOR.replace('ckeditor-news-summary', {
+    height: 150
+  });
+
   var inputFile = document.getElementById('blog_image');
   var imagePreview = document.getElementById('image_preview');
 

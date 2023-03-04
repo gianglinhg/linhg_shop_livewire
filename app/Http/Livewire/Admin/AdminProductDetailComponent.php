@@ -21,9 +21,20 @@ class AdminProductDetailComponent extends Component
 
     protected $rules = [
         'form.product_id' => 'required',
-        'form.color' => 'required',
+        'form.color' => 'required | min:2',
+        'form.color_code' => 'required',
         'form.size' => 'required',
-        'form.qty' => 'required',
+        'form.qty' => 'required | integer',
+    ];
+    protected $messages = [
+        'form.product_id.required' => 'Chưa chọn sản phẩm',
+        'form.size.required' => 'Chưa chọn size',
+        'form.color_code.required' => 'Chưa chọn mã màu',
+        'form.color.min' => 'Ít nhất 2 kí tự',
+        'form.color.required' => 'Trường này buộc nhập',
+        'form.qty.required' => 'Số lượng buộc phải nhập',
+        'form.qty.integer' => 'Số lượng phải là số nguyên',
+
     ];
     public function showFormAddQty(){
         $this->reset();

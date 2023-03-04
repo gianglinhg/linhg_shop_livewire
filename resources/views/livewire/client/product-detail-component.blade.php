@@ -255,16 +255,18 @@
 
                 </div> <!-- end col product description -->
             </div> <!-- end row -->
-
         </div> <!-- end container -->
     </section>
+    {{-- <section class="section-wrap pt-0 pb-40">
+    </section> --}}
+
     <section class="section-wrap pt-0 pb-40">
         <div class="container">
 
             <div class="heading-row">
                 <div class="text-center">
                     <h2 class="heading bottom-line">
-                        Shop the look
+                        Sản phẩm cùng loại
                     </h2>
                 </div>
             </div>
@@ -314,8 +316,14 @@
                 </div> <!-- end product -->
                 @endforeach
             </div> <!-- end row -->
+
+            <!-- Comment -->
+            <div class="w-75">
+                @livewire('client.product-comment-component')
+            </div>
         </div> <!-- end container -->
     </section>
+
     @push('scripts')
     <script>
         window.addEventListener('messageCart',event =>{

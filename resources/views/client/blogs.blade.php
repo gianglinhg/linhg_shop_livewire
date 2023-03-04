@@ -33,6 +33,9 @@
                                 <span class="entry__meta-label">Loại: </span><a
                                     href="#">{{$blog->blogCategory->name}}</a>
                             </li>
+                            <li class="entry__meta-category">
+                                <span class="entry__meta-label">Xem: </span><a href="#">{{$blog->view}}</a>
+                            </li>
                         </ul>
                     </div>
 

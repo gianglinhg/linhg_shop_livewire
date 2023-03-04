@@ -24,8 +24,8 @@ class AdminBrandComponent extends Component
     ];
     protected $messages = [
         'name.required' => 'Tên hãng buộc nhập',
-        'slug.required' => 'Slug hãng buộc nhập',
-        'slug.regex' => 'Slug không đúng định dạng'
+        'slug.required' => 'Đường dẫn hãng buộc nhập',
+        'slug.regex' => 'Định dạng đường dẫn không đúng'
     ];
     public function generateSlug(){
         $this->slug = \Str::slug($this->name,'-');
@@ -49,6 +49,7 @@ class AdminBrandComponent extends Component
         $this->reset();
     }
     public function showFormEdit($id){
+        $this->reset();
         $this->editMode = true;
         $this->dispatchBrowserEvent('show-form');
         $this->bras = Brand::findOrFail($id);

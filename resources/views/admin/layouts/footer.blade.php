@@ -30,10 +30,3 @@
 <script src="{{asset('/template/assets/ckeditor/ckeditor.js')}}"></script>
 @stack('scripts')
 @livewireScripts
-
-<!-- CKEDITOR -->
-<script>
-    CKEDITOR.replace('ckeditor-new', {
-    height: 300
-    });
-</script>

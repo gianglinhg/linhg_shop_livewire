@@ -20,6 +20,18 @@ class AdminBlogCategoryComponent extends Component
     public $lang;
     public $featured;
 
+    protected $rules = [
+        'name' => 'required',
+        'slug' => ['required',"regex:'^[a-z0-9]+(?:(?:-|_)+[a-z0-9]+)*$'"],
+        'lang' => 'required',
+    ];
+    protected $messages = [
+        'name.required' => 'Trường tên buộc phải nhập',
+        'slug.required' => 'Trường tên buộc phải nhập',
+        'slug.regex' => 'Định dạng đương dẫn không đúng',
+        'lang.required' => 'Trường tên buộc phải nhập',
+    ];
+
     public function generateSlug(){
         $this->slug = \Str::slug($this->name,'-');
     }
@@ -28,6 +40,7 @@ class AdminBlogCategoryComponent extends Component
         $this->dispatchBrowserEvent('show-form');
     }
     public function storeAdd(){
+        $this->validate();
         BlogCategory::create([
             'name' => $this->name,
             'slug' => $this->slug,
@@ -47,6 +60,7 @@ class AdminBlogCategoryComponent extends Component
         $this->featured = $this->blogCategory->featured;
     }
     public function storeEdit(){
+        $this->validate();
         $this->blogCategory->update([
             'name' => $this->name,
             'slug' => $this->slug,
