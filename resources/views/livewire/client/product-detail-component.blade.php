@@ -81,34 +81,33 @@
                             </span> --}}
                         </span>
                         @foreach($product->productDetails as $productDetail)
-                        <!-- colors__item--selected -->
+                        @if($productDetail->qty > 0)
                         <a href="#"
                             class="colors__item {{$color == $productDetail->color ? 'colors__item--selected' : ''}}"
                             style="background-color:{{$productDetail->color_code}}"
                             wire:click.prevent="getColorDetail('{{$productDetail->color}}')"></a>
+                        @endif
                         @endforeach
                     </div>
-
                     <div class="size-quantity clearfix">
                         <div class="size">
                             <label>Size</label>
                             <select name="size" id="size__select" class="size__select" wire:model.defer='size'>
-                                @foreach(config('admin.size_clothes') as $size)
-                                <option value="{{$size}}">{{$size}}</option>
+                                @if($colorDetails)
+                                <option value="0">Vui lòng chọn size</option>
+                                @foreach($colorDetails as $colorDetail)
+                                <option value="{{$colorDetail->size}}">{{$colorDetail->size}}</option>
                                 @endforeach
+                                @else
+                                <option value="0">Chọn màu để hiện size</option>
+                                @endif
                             </select>
                         </div>
 
                         <div class="quantity">
                             <label>Quantity</label>
-                            <select name="quantity" id="quantity__select" class="quantity__select"
+                            <input name="quantity" id="quantity__select" class="quantity__select"
                                 wire:model.defer='quantity'>
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
                         </div>
                     </div>
 

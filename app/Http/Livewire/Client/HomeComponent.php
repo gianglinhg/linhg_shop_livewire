@@ -39,6 +39,8 @@ class HomeComponent extends Component
         $bestSellers = Product::distinct()
         ->join('product_details', 'products.id', 'product_details.product_id')
         ->select('products.*')
+        ->where('featured',true)
+        ->where('product_details.qty', '>' , 0)
         ->limit(6)->get();
         $newArries = Product::distinct()
         ->join('product_details', 'products.id', 'product_details.product_id')

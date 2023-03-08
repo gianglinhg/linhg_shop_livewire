@@ -23,7 +23,7 @@ class BlogController extends Controller
     public function read($slug){
         $blog = Blog::where('slug',$slug)->first();
         $blog->update(['view' => $blog->view + 1]);
-        request()->session()->put('idBlogDetail', $blog->id);
+        session()->put('blog_id', $blog->id);
         $title = $blog->title;
         return view('client.blog-detail',compact('title','blog'));
     }

@@ -75,7 +75,7 @@
     @if($isModalStatus)
     <!-- Modal trạng thái -->
     <div class="modal" id="change_status">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <form wire:submit.prevent='changeStatusOrder' method="POST">
                 @csrf
                 <div class="modal-content" style="padding: 10px 30px">

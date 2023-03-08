@@ -40,6 +40,7 @@ class ShopComponent extends Component
         $products = Product::distinct()
             ->join('product_details', 'products.id', '=', 'product_details.product_id')
             ->where('featured',true)
+            ->where('product_details.qty', '>' , 0)
             ->select('products.*');
         foreach(ProductCategory::all() as $key => $productCategory){
             $productCategory_arr[$key] = $productCategory->slug;

@@ -142,7 +142,7 @@
 
               <div>
                 <p class="form-row notes ecommerce-validated form-group" id="order_comments_field">
-                  <label for="order_comments">Order Notes</label>
+                  <label for="order_comments">Ghi chú</label>
                   <textarea name="order_comments" class="input-text form-control" id="order_comments"
                     placeholder="Ghi chú của khách hàng về đơn hàng của mình" rows="2" cols="6"
                     wire:model='order_note'></textarea>
@@ -193,28 +193,19 @@
                 </table>
 
                 <div id="payment" class="ecommerce-checkout-payment">
-                  <h2 class="uppercase">Payment Method</h2>
+                  <h2 class="uppercase">Phương thức thanh toán</h2>
                   <ul class="payment_methods methods">
 
                     <li class="payment_method_bacs">
-                      <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method"
-                        value="bacs" checked="checked">
-                      <label for="payment_method_bacs">Direct Bank Transfer</label>
+                      <input id="payment_method_bacs" type="radio" class="input-radio" name="vnpay" value="bacs"
+                        checked="checked">
+                      <label for="payment_method_bacs">VN Pay</label>
                       <div class="payment_box payment_method_bacs">
                         <p>Make your payment directly into our bank account. Please use your Order ID as the payment
                           reference. Your order wont be shipped until the funds have cleared in our account.</p>
                       </div>
                     </li>
 
-                    <li class="payment_method_cheque">
-                      <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method"
-                        value="cheque">
-                      <label for="payment_method_cheque">Cheque payment</label>
-                      <div class="payment_box payment_method_cheque">
-                        <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store
-                          Postcode.</p>
-                      </div>
-                    </li>
 
                     <li class="payment_method_paypal">
                       <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method"
@@ -223,6 +214,16 @@
                       <img src="img/shop/paypal.png" alt="">
                       <div class="payment_box payment_method_paypal">
                         <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                      </div>
+                    </li>
+
+                    <li class="payment_method_cheque">
+                      <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method"
+                        value="cheque">
+                      <label for="payment_method_cheque">Thanh toán khi nhận hàng</label>
+                      <div class="payment_box payment_method_cheque">
+                        <p>Bạn có thể nhận hàng sau đó thanh toán cho chúng tôi qua hình thức COD và dịch vụ thu hộ của
+                          đơn vị vận chuyển.</p>
                       </div>
                     </li>
 

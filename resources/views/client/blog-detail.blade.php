@@ -92,7 +92,7 @@
         </div> --}}
 
         <!-- Comments -->
-        @livewire('client.blog-comment-component',['blog' => $blog])
+        @livewire('client.blog-comment-component')
         <!-- End Comments -->
 
 

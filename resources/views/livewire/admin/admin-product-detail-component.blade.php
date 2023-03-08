@@ -56,7 +56,10 @@
                         @foreach($products_has_detail as $key => $product_has_detail)
                         <tr>
                             <td>{{++$i}}</td>
-                            <td>{{$product_has_detail->name}}</td>
+                            <td>
+                                <a
+                                    href="{{route('shop.detail',[$product_has_detail->slug])}}">{{$product_has_detail->name}}</a>
+                            </td>
                             <td>
                                 @php
                                 $sumQty = 0;

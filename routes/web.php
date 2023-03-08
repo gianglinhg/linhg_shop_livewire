@@ -6,6 +6,9 @@ use App\Http\Controllers\TestController;
 
 use App\Http\Controllers\Client\MainController;
 use App\Http\Controllers\Client\BlogController;
+use App\Http\Controllers\Client\PaymentController;
+
+use App\Http\Controllers\Admin\AdminBlogController;
 
 use App\Http\Livewire\Client\QuickProductDetailComponent;
 use App\Http\Livewire\Client\ShopComponent;
@@ -13,8 +16,6 @@ use App\Http\Livewire\Client\CartComponent;
 use App\Http\Livewire\Client\WishlistComponent;
 use App\Http\Livewire\Client\ProductDetailComponent;
 use App\Http\Livewire\Client\CheckoutComponent;
-
-use App\Http\Controllers\Admin\AdminBlogController;
 
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
@@ -34,8 +35,8 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
 
 
 /* TODO:CLIENT */
-    Route::get('/', [MainController::class,'index']);
-    Route::get('/home', [MainController::class,'home']);
+
+    Route::get('/', [MainController::class,'home']);
     Route::get('/contact', [MainController::class,'contact'])->name('contact');
     Route::get('/about', [MainController::class,'about'])->name('about');
     Route::get('/cart.html', CartComponent::class)->name('cart');
@@ -47,6 +48,8 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
     Route::get('/blog/{slug}.html', [BlogController::class,'read'])->name('blog.read');
     Route::get('/test',[TestController::class,'test'])->name('test');
 
+    Route::get('vnpay-payment',[PaymentController::class, 'vnpay'])->name('vnpay-payment');
+
 
 /* TODO:ADMIN */
 
@@ -57,7 +60,6 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
         Route::get('/products-comment',AdminProductCommentComponent::class)->name('product.comment');
         Route::get('/category',AdminCategoryComponent::class)->name('product.category');
         Route::get('/brand',AdminBrandComponent::class)->name('brand');
-        // Route::get('/blog',AdminBlogComponent::class)->name('blog');
         Route::prefix('blog')->name('blog.')->group(function(){
             Route::get('/',[AdminBlogController::class,'index'])->name('index');
             Route::get('/add',[AdminBlogController::class,'create'])->name('add');

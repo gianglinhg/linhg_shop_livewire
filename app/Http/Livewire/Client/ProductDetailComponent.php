@@ -5,34 +5,44 @@ namespace App\Http\Livewire\Client;
 use Livewire\Component;
 use Cart;
 use App\Models\Product;
+use App\Models\ProductDetail;
 
 class ProductDetailComponent extends Component
 {
     public $slug;
 
     public $size;
-    public $quantity;
+    public $quantity = 1;
     public $product;
     public $color;
+    public $colorDetails;
 
     public function getColorDetail($color){
         $this->color = $color;
+        $this->colorDetails = ProductDetail::where('color', $color)
+        ->where('product_id', $this->product->id)
+        ->get();
     }
 
     public function addToCart(){
-        $cartItem = Cart::instance('cart')->add(
-            $this->product->id,
-            $this->product->name,
-            $this->quantity ? $this->quantity : 1,
-            $this->product->price,
-            $this->product->weight ? $this->product->weight : 0,
-            [
-                'size' => $this->size ? $this->size : 'XS',
-                'color' => $this->color
-            ]
-        );
-        $cartItem->associate('\App\Models\Product');
-        session()->flash('messageCart','Đã thêm sản phẩm vào giỏ hàng');
+        if(!empty($this->color)){
+            $cartItem = Cart::instance('cart')->add(
+                $this->product->id,
+                $this->product->name,
+                $this->quantity ? $this->quantity : 1,
+                $this->product->price,
+                $this->product->weight ? $this->product->weight : 0,
+                [
+                    'size' => $this->size,
+                    'color' => $this->color,
+                ]
+            );
+            $cartItem->associate('\App\Models\Product');
+            $messageCart = 'Đã thêm sản phẩm vào giỏ hàng';
+        }else{
+            $messageCart = 'Bạn chưa chọn màu, vui lòng chọn !';
+        }
+        session()->flash('messageCart', $messageCart);
         $this->dispatchBrowserEvent('messageCart');
         $this->emitTo('client.cart-icon-component','refreshComponent');
     }
@@ -43,9 +53,9 @@ class ProductDetailComponent extends Component
     }
 
     public function removeFromWishlist($product_id){
-        foreach(Cart::instance('wishlist')->content() as $wiItem){
-            if($wiItem->id === $product_id) {
-                Cart::instance('wishlist')->remove($wiItem->rowId);
+        foreach(Cart::instance('wishlist')->content() as $wishItem){
+            if($wishItem->id === $product_id) {
+                Cart::instance('wishlist')->remove($wishItem->rowId);
                 $this->emitTo('client.wishlist-icon-component','refreshComponent');
                 break;
             }
@@ -60,6 +70,7 @@ class ProductDetailComponent extends Component
         $product_category_id = $this->product->productCategory->id;
         $similarProducts = Product::where('product_category_id',$product_category_id)->get();
         $title = $this->product->name;
-        return view('livewire.client.product-detail-component',compact('similarProducts'))->layoutData(['title'=> $title]);
+        return view('livewire.client.product-detail-component',compact('similarProducts'))
+        ->layoutData(['title'=> $title]);
     }
 }

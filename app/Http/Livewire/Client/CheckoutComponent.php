@@ -8,6 +8,7 @@ use Str;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\ProductDetail;
 use Auth;
 
 class CheckoutComponent extends Component
@@ -33,13 +34,14 @@ class CheckoutComponent extends Component
     public function storeOrder(){
         $validate = $this->validate();
         $customer = Customer::create($validate);
+        dd($customer);
         $order = Order::create([
             'customer_id' => $customer->id,
             'order_code' => Str::upper(Str::random(8)),
             'order_note' => $this->order_note ? $this->order_note : null,
             'total' => Cart::instance('cart')->total()
         ]);
-        foreach(Cart::instance('cart')->content() as $itemCart){
+        foreach(Cart::instance('cart')->content() as $key => $itemCart){
             $order_detail = OrderDetail::create([
                 'order_id' => $order->id,
                 'product_id' => $itemCart->model->id,
@@ -47,7 +49,14 @@ class CheckoutComponent extends Component
                 'color' => $itemCart->options->color,
                 'size' => $itemCart->options->size
             ]);
-            if($order_detail) Cart::instance('cart')->remove($itemCart->rowId);
+            if($order_detail) {
+                $itemDetail = ProductDetail::where('size',$order_detail->size)
+                    ->where('color', $order_detail->color)->first();
+                $itemDetail->update([
+                    'qty' => $itemDetail->qty - $order_detail->qty
+                ]);
+                Cart::instance('cart')->remove($itemCart->rowId);
+            }
         }
         return redirect('/')->with('message', 'Đã đặt hàng thành công !');
     }

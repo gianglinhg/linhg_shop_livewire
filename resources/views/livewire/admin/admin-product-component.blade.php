@@ -367,8 +367,11 @@
     @if($qtyMode)
     <div class="modal fade bd-example-modal-lg" id="quantity" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content p-0">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>{{$productQty->name}}</h3>
+                </div>
                 <div class="modal-body">
                     <div class="mx-auto p-2 m-2" style="font-size:18px">
                         <table class="table table-bordered" id="table-detail">
@@ -376,7 +379,7 @@
                                 <tr>
                                     <th>Màu</th>
                                     <th>Size</th>
-                                    <th>Số lượng</th>
+                                    <th width='30%'>Số lượng</th>
                                 </tr>
                             </thead>
                             <tbody>

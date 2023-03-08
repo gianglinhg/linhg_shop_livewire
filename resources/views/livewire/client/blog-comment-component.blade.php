@@ -7,23 +7,19 @@
             <li class="comment">
                 <div class="comment-body">
                     <div class="comment-avatar">
-                        @if($blogComment->user)
                         <img alt="" src="{{asset(Storage::url('users/'.$blogComment->user->avatar))}}"
                             style="width:100px;height:100px;object-fit:cover">
-                        @else
-                        <img alt="" src="{{asset(Storage::url('users/avatar.png'))}}">
-                        @endif
                     </div>
                     <div class="comment-text">
-                        <h6 class="comment-author">{{$blogComment->name}}</h6>
+                        <h6 class="comment-author">{{$blogComment->user->name}}</h6>
                         <div class="comment-metadata">
-                            <a href="#" class="comment-date">{{$blogComment->created_at}}</a>
+                            <a href="#" class="comment-date">{{$blogComment->created_at->diffForHumans()}}</a>
                         </div>
                         <p>{{$blogComment->messages}}</p>
-                        <a href="#" class="comment-reply">Reply</a>
+                        <a href="#" class="comment-reply">Trả lời</a>
                         @if(Auth::check() && Auth::id() == $blogComment->user_id)
                         <a class="comment-reply" style="color:red; cursor: pointer;"
-                            wire:click='deleteComment({{$blogComment->id}})'>Delete
+                            wire:click='deleteComment({{$blogComment->id}})'>Xóa
                         </a>
                         @endif
                     </div>
@@ -54,39 +50,21 @@
         </ul>
     </div> <!-- end comments -->
 
-
+    @if(Auth::check())
     <!-- Comment Form -->
     <div id="respond" class="comment-respond">
-        <h5 class="comment-respond__title uppercase">post a comment</h5>
+        <h5 class="comment-respond__title uppercase">Đăng tải bình luận</h5>
         <form id="form" class="comment-form" method="post" action="#">
             <div class="comment-form-comment form-group">
-                <label for="comment">Comment</label>
+                <label for="comment">Nội dung bình luận</label>
                 <textarea id="comment" name="comment" rows="5" class="form-control"
-                    placeholder="Nhập bình luận của bạn tại đây" wire:model='comment.message'></textarea>
-                @error('comment.message')
+                    placeholder="Nhập bình luận của bạn tại đây" wire:model.defer='message'></textarea>
+                @error('message')
                 <small class="text-danger">{{$message}}</small>
                 @enderror
             </div>
-            @guest
-            <div class="row">
-                <div class="col-lg-6 form-group">
-                    <label for="name">Name</label>
-                    <input name="name" id="name" type="text" class="form-control" wire:model='comment.name'>
-                    @error('comment.name')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="col-lg-6 form-group">
-                    <label for="email">Email</label>
-                    <input name="email" id="email" type="email" class="form-control" wire:model='comment.email'>
-                    @error('comment.email')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-            </div>
-            @endguest
             <div class="comment-form-submit form-group mt-3">
-                <button class="btn btn-lg btn-color w-100" id="submit-message" wire:click.prevent='storeComment'
+                <button class="btn btn-lg btn-color w-25" id="submit-message" wire:click.prevent='storeComment'
                     style="line-height: 45px; border-radius: 5px;">Gửi bình luận</button>
             </div>
 
@@ -97,4 +75,9 @@
 
         </form>
     </div> <!-- end comment form -->
+    @else
+    <a href="{{route('login')}}" style="margin-top: 24px;color: #ec2424;display: inline-block;">
+        Đăng nhập</a>
+    <span> để tham gia bình luận</span>
+    @endif
 </div>
