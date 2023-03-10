@@ -33,14 +33,16 @@
                     <!-- Filter -->
                     <div class="shop-filter">
                         <p class="woocommerce-result-count" style="color:#333 !important;">
-                            Showing: 1-12 of 80 results
+                            Đang hiện: <span>{{ $products->firstItem() }}</span>
+                            - <span>{{ $products->lastItem() }}</span> của
+                            <span>{{$products->count()}}</span> sản phẩm
                         </p>
-                        <span class="woocommerce-ordering-label">Sort by</span>
+                        <span class="woocommerce-ordering-label">Sắp xếp theo</span>
                         <form class="woocommerce-ordering">
                             <select wire:model='sort'>
-                                <option value="default-sorting">Default Sorting</option>
-                                <option value="price-low-to-high">Price: low to high</option>
-                                <option value="price-high-to-low">Price: high to low</option>
+                                <option value="default-sorting">Mặc định</option>
+                                <option value="price-low-to-high">Giá: tăng dần</option>
+                                <option value="price-high-to-low">Giá: giảm dần</option>
                                 {{-- <option value="by-popularity">By Popularity</option>
                                 <option value="date">By Newness</option>
                                 <option value="rating">By Rating</option> --}}
@@ -64,19 +66,19 @@
                                 <div class="product__actions">
                                     <a href="#" wire:click.prevent='quickViewDetail({{$product->id}})'>
                                         <i class="mdi mdi-information-outline"></i>
-                                        <span>Detail</span>
+                                        <span>Chi tiết</span>
                                     </a>
                                     @if($wiItem->contains($product->id))
                                     <a href="#" class="product__add-to-wishlist wishlisted"
                                         wire:click.prevent="removeFromWishlist({{$product->id}})">
                                         <i class="mdi mdi-heart"></i>
-                                        <span>Wishlist</span>
+                                        <span>Yêu thích</span>
                                     </a>
                                     @else
                                     <a href="#" class="product__add-to-wishlist"
                                         wire:click.prevent="addToWishList({{$product->id}}, '{{$product->name}}', {{$product->price}})">
                                         <i class="ui-heart"></i>
-                                        <span>Wishlist</span>
+                                        <span>Yêu thích</span>
                                     </a>
                                     @endif
                                 </div>
@@ -114,7 +116,7 @@
 
                     <!-- Categories -->
                     <div class="widget widget_categories widget--bottom-line">
-                        <h4 class="widget-title">Categories</h4>
+                        <h4 class="widget-title">Danh mục</h4>
                         <ul>
                             <li>
                                 <a href="{{url('shop?for=women')}}">Nữ</a>
@@ -151,7 +153,7 @@
                             </li>
                             <li>
                                 <input type="checkbox" class="checkbox" id="large-size" name="large-size">
-                                <label for="large-size" class="checkbox-label">Meduim</label>
+                                <label for="large-size" class="checkbox-label">Medium</label>
                             </li>
                             <li>
                                 <input type="checkbox" class="checkbox" id="xlarge-size" name="xlarge-size">
@@ -166,7 +168,7 @@
 
                     <!-- Color -->
                     <div class="widget widget__filter-by-color widget--bottom-line">
-                        <h4 class="widget-title">Color</h4>
+                        <h4 class="widget-title">Màu</h4>
                         <ul class="color-select">
                             <li>
                                 <input type="checkbox" class="checkbox" id="green-color" name="green-color">
@@ -217,31 +219,33 @@
         </div> <!-- end container -->
     </section>
     @if($productDetail)
-    <div class="modal fade bd-example-modal-lg" id="quick_detail" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="quick_detail" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content p-0">
                 <div class="modal-body">
-                    <div class="mx-auto p-2 m-2" style="font-size:18px">
+                    <div class="p-0 m-0" style="font-size:18px">
                         <div class="row">
 
-                            <div class="col-md-6 product-slider mb-50">
+                            <div class="col-md-6 product-slider">
 
                                 <div class="flickity flickity-slider-wrap mfp-hover flickity-enabled is-draggable"
                                     id="gallery-main" tabindex="0">
-                                    <div style="width:28rem;">
+                                    <div>
                                         <img src="{{asset(Storage::url('products/'.$productDetail->productImages[0]->path))}}"
-                                            alt="" width="80%">
+                                            alt="">
                                     </div>
                                 </div> <!-- end gallery main -->
 
                                 <div class="gallery-thumbs flickity-enabled is-draggable d-flex" id="gallery-thumbs"
                                     tabindex="0">
-                                    <div class="d-flex">
-                                        @foreach($productDetail->productImages as $productImage)
-                                        <img src="{{asset(Storage::url('products/'.$productImage->path))}}" alt=""
-                                            width="20%">
-                                        @endforeach
+                                    <div class="d-flex" style="gap: 4px">
+                                        <?php
+                                        $countImages = $productDetail->productImages->count();
+
+                                        foreach($productDetail->productImages as $productImage){ ?>
+                                        <img src="{{asset(Storage::url('products/'.$productImage->path))}}"
+                                            style="width: calc((100%/{{$countImages}}) - 4px)">
+                                        <?php } ?>
                                     </div>
 
                                 </div> <!-- end gallery thumbs -->

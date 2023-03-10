@@ -21,7 +21,7 @@ $recentBlogs = \DB::table('blogs')->limit(3)->get();
 
     <!-- Categories -->
     <div class="widget widget_categories">
-      <h4 class="widget-title">Categories</h4>
+      <h4 class="widget-title">Danh mục</h4>
       <ul>
         @foreach($blogCategories as $blogCategory)
         <li>
@@ -34,7 +34,7 @@ $recentBlogs = \DB::table('blogs')->limit(3)->get();
 
     <!-- Recent Posts -->
     <div class="widget widget_recent_entries">
-      <h4 class="widget-title">Recent Posts</h4>
+      <h4 class="widget-title">Bài đăng gần đây</h4>
       <ul>
         @foreach($recentBlogs as $recentBlog)
         <li>
@@ -47,7 +47,7 @@ $recentBlogs = \DB::table('blogs')->limit(3)->get();
 
     <!-- Follow Us -->
     <div class="widget widget-follow">
-      <h4 class="widget-title">Follow Us</h4>
+      <h4 class="widget-title">Theo dõi chúng tôi</h4>
       <ul>
         <li><a href="#">Facebook</a></li>
         <li><a href="#">Instagram</a></li>
@@ -60,10 +60,10 @@ $recentBlogs = \DB::table('blogs')->limit(3)->get();
 
     <!-- Tags -->
     <div class="widget widget_tags clearfix">
-      <h4 class="widget-title">Tag Cloud</h4>
-      <a href="#">Multi-purpose</a>
-      <a href="#">Creative</a>
-      <a href="#">Elegant</a>
+      <h4 class="widget-title">Tag</h4>
+      <a href="#">Showbiz</a>
+      <a href="#">Fashion</a>
+      <a href="#">T-shirt</a>
       <a href="#">Clean</a>
       <a href="#">Modern</a>
       <a href="#">Responsive</a>

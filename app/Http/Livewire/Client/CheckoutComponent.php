@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Client;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Routing\Redirector;
+use Illuminate\Http\Request;
 use Cart;
 use Str;
 use App\Models\Customer;
@@ -22,6 +25,9 @@ class CheckoutComponent extends Component
     public $email;
     public $order_note;
 
+    public $data;
+    public $payment_method = 'cod';
+
     protected $rules = [
         "first_name" => "required",
         "last_name" => "required",
@@ -30,11 +36,18 @@ class CheckoutComponent extends Component
         "city" => "required",
         "phone" => "required",
         "email" => "required",
+        "payment_method" => 'required',
     ];
+    public function updatedPaymentMethod(){
+        // if ($this->payment_method == 'paypal') {
+        //     dd($this->payment_method);
+        // } elseif ($this->payment_method == 'vnpay') {
+        //     dd($this->payment_method);
+        // }
+    }
     public function storeOrder(){
         $validate = $this->validate();
         $customer = Customer::create($validate);
-        dd($customer);
         $order = Order::create([
             'customer_id' => $customer->id,
             'order_code' => Str::upper(Str::random(8)),
@@ -61,6 +74,7 @@ class CheckoutComponent extends Component
         return redirect('/')->with('message', 'Đã đặt hàng thành công !');
     }
     public function mount(){
+        // $this->payment_method['cod'] = "cod";
         if(Cart::instance('cart')->count() == 0) {
             $this->dispatchBrowserEvent('message');
             return to_route('shop.index')
@@ -72,6 +86,7 @@ class CheckoutComponent extends Component
             $this->phone = Auth::user()->phone;
             $this->email = Auth::user()->email;
         }
+        // if($payment == 'vnpay') $this->storeOrder();
     }
     public function render()
     {

@@ -36,16 +36,13 @@ class HomeComponent extends Component
     }
     public function render()
     {
-        $bestSellers = Product::distinct()
+        $query = Product::distinct()
         ->join('product_details', 'products.id', 'product_details.product_id')
         ->select('products.*')
         ->where('featured',true)
-        ->where('product_details.qty', '>' , 0)
-        ->limit(6)->get();
-        $newArries = Product::distinct()
-        ->join('product_details', 'products.id', 'product_details.product_id')
-        ->select('products.*')
-        ->limit(6)->latest()->get();
+        ->where('product_details.qty', '>' , 0);
+        $bestSellers = $query->limit(6)->get();
+        $newArries = $query->limit(6)->latest()->get();
         return view('livewire.client.home-component',compact('bestSellers','newArries'));
     }
 }

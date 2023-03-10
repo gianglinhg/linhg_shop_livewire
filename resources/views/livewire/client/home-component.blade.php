@@ -1,4 +1,14 @@
 <div>
+    @push('styles')
+    <style>
+        #messageModal {
+            position: fixed;
+            z-index: 999999;
+            top: 16px;
+            right: 14px;
+        }
+    </style>
+    @endpush
     @php
     $wiItem = Cart::instance('wishlist')->content()->pluck('id');
     @endphp
@@ -25,19 +35,19 @@
                         <div class="product__actions">
                             <a href="#" wire:click.prevent='quickViewDetail({{$item->id}})'>
                                 <i class="mdi mdi-information-outline"></i>
-                                <span>Detail</span>
+                                <span>Chi tiết</span>
                             </a>
                             @if($wiItem->contains($item->id))
                             <a href="#" class="product__add-to-wishlist wishlisted"
                                 wire:click.prevent="removeFromWishlist({{$item->id}})">
                                 <i class="mdi mdi-heart"></i>
-                                <span>Wishlist</span>
+                                <span>Yêu thích</span>
                             </a>
                             @else
                             <a href="#" class="product__add-to-wishlist"
                                 wire:click.prevent="addToWishList({{$item->id}}, '{{$item->name}}', {{$item->price}})">
                                 <i class="ui-heart"></i>
-                                <span>Wishlist</span>
+                                <span>Yêu thích</span>
                             </a>
                             @endif
                         </div>
@@ -126,31 +136,33 @@
     </section> <!-- end new arrivals -->
     <!-- Model product chi tiết trang chủ -->
     @if($productDetail)
-    <div class="modal fade bd-example-modal-lg" id="quick_detail" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="quick_detail" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content p-0">
+            <div class="modal-content p-0 m-0">
                 <div class="modal-body">
-                    <div class="mx-auto p-2 m-2" style="font-size:18px">
+                    <div class="" style="font-size:18px">
                         <div class="row">
 
-                            <div class="col-md-6 product-slider mb-50">
+                            <div class="col-md-6 product-slider">
 
                                 <div class="flickity flickity-slider-wrap mfp-hover flickity-enabled is-draggable"
                                     id="gallery-main" tabindex="0">
-                                    <div style="width:28rem;">
+                                    <div>
                                         <img src="{{asset(Storage::url('products/'.$productDetail->productImages[0]->path))}}"
-                                            alt="" width="80%">
+                                            alt="">
                                     </div>
                                 </div> <!-- end gallery main -->
 
                                 <div class="gallery-thumbs flickity-enabled is-draggable d-flex" id="gallery-thumbs"
                                     tabindex="0">
-                                    <div class="d-flex">
-                                        @foreach($productDetail->productImages as $productImage)
-                                        <img src="{{asset(Storage::url('products/'.$productImage->path))}}" alt=""
-                                            width="20%">
-                                        @endforeach
+                                    <div class="d-flex" style="gap: 4px">
+                                        <?php
+                                        $countImages = $productDetail->productImages->count();
+
+                                        foreach($productDetail->productImages as $productImage){ ?>
+                                        <img src="{{asset(Storage::url('products/'.$productImage->path))}}"
+                                            style="width: calc((100%/{{$countImages}}) - 4px)">
+                                        <?php } ?>
                                     </div>
 
                                 </div> <!-- end gallery thumbs -->
@@ -312,9 +324,9 @@
     </div>
     @endif
     @if(session()->has('message'))
-    <div class="modal" id="messageModal">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 10px 30px">
+    <div class="" id="messageModal">
+        <div class="">
+            <div class="modal-content">
                 <div class="modal-body">
                     <i class="mdi mdi-check-circle text-success"></i>
                     {{session()->get('message')}}

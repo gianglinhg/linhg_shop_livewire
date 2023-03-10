@@ -7,13 +7,10 @@
     <!-- Breadcrumbs -->
     <ol class="breadcrumbs">
       <li>
-        <a href="index.html">Home</a>
-      </li>
-      <li>
-        <a href="index.html">Pages</a>
+        <a href="index.html">Trang chủ</a>
       </li>
       <li class="active">
-        Catalog Grid
+        Liên hệ
       </li>
     </ol>
 
@@ -33,12 +30,13 @@
     <div class="row">
 
       <div class="col-lg-8">
-        <h2 class="uppercase">drop us a line</h2>
-        <p>Namira is a very slick and clean e-commerce template with endless possibilities. Creating an awesome clothes
-          store with this Theme is easy than you can imagine.</p>
+        <h2 class="uppercase">Đặt câu hỏi cho chúng tôi</h2>
+        <p>LinhG shop là một website được viết hoàn toàn từ ngôn ngữ PHP, cụ thể là framework Laravel và Livewire của
+          Laravel.</p>
 
         <!-- Contact Form -->
         <form id="contact-form" class="contact-form mt-30 mb-30" method="post" action="#">
+          @csrf
           <div class="form-group contact-name">
             <label for="name">Name <abbr title="required" class="required">*</abbr></label>
             <input name="name" class="form-control" id="name" type="text">
@@ -56,7 +54,7 @@
             <textarea id="message" class="form-control" name="message" rows="7" required="required"></textarea>
           </div>
 
-          <input type="submit" class="btn btn-lg btn-color btn-button" value="Gửi thông báo" id="submit-message">
+          <input type="submit" class="btn btn-lg btn-color btn-button w-25" value="Gửi thông báo" id="submit-message">
           <div id="msg" class="message"></div>
         </form>
       </div> <!-- end col -->
@@ -65,26 +63,24 @@
         <div class="contact-info">
           <ul>
             <li class="contact-info__item">
-              <h4 class="contact-info__title uppercase">Address</h4>
-              <h6 class="contact-info__store-title">Philippines Store</h6>
-              <address class="address">Philippines, PO Box 620067, Talay st. 66, A-ha inc.</address>
-              <h6 class="contact-info__store-title">Canada Store</h6>
-              <address class="address">A-ha inc, 10-123 Main st. NW, Montreal QC, H3Z2Y7</address>
+              <h4 class="contact-info__title uppercase">Địa chỉ</h4>
+              <h6 class="contact-info__store-title">Hồ Chí Minh</h6>
+              <address class="address">Quang Trung, Quận Gò Vấp, Hồ Chí Minh.</address>
+              <h6 class="contact-info__store-title">Hà Nội</h6>
+              <address class="address">Văn Cao, Quận Ba Đình, Hà Nội</address>
             </li>
             <li class="contact-info__item">
-              <h4 class="contact-info__title uppercase">Contact Info</h4>
+              <h4 class="contact-info__title uppercase">Thông tin</h4>
               <ul>
-                <li><span>Phone: </span><a href="tel:+1-888-1554-456-123">+ 1-888-1554-456-123</a></li>
-                <li><span>Email: </span><a href="mailto:themesupport@gmail.com">themesupport@gmail.com</a></li>
-                <li><span>Skype: </span><a href="#">ahasupport</a></li>
+                <li><span>Phone: </span><a href="tel:+1-888-1554-456-123">0337 559 661</a></li>
+                <li><span>Email: </span><a href="mailto:linhbq89@gmail.com">linhbq89@gmail.com</a></li>
+                {{-- <li><span>Skype: </span><a href="#">ahasupport</a></li> --}}
               </ul>
             </li>
             <li class="contact-info__item">
-              <h4 class="contact-info__title uppercase">Business Hours</h4>
+              <h4 class="contact-info__title uppercase">Thời gian hoạt động</h4>
               <ul>
-                <li>Monday – Friday: 9am to 20 pm</li>
-                <li>Saturday: 9am to 17 pm</li>
-                <li>Sunday: closed</li>
+                <li>Thứ 2 – Chủ nhật: 8 giờ đến 22 giờ</li>
               </ul>
             </li>
           </ul>

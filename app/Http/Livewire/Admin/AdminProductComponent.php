@@ -54,7 +54,9 @@ class AdminProductComponent extends Component
     public $filter_brand;
     public $filter_show;
     public $filter_hide;
-    public $keyword;
+    public $q;
+
+    protected $queryString = ['q'];
 
     protected $rules = [
         'form.brand_id' => 'required',
@@ -254,7 +256,7 @@ class AdminProductComponent extends Component
     }
     public function render()
     {
-        $products = Product::latest();
+        $products = Product::query();
         if(!empty($this->filter_category)){
             $products = $products->where('product_category_id',$this->filter_category);
             $countProduct = $products->count();
@@ -271,13 +273,13 @@ class AdminProductComponent extends Component
             $products = $products->where('featured',0);
             $countProduct = $products->count();
         }
-        if(!empty($this->keyword)){
-            $products = $products->where('name','like','%'.$this->keyword.'%');
+        if(!empty($this->q)){
+            $products = $products->where('name','like','%'.$this->q.'%');
             $countProduct = $products->count();
         }
         if(!empty($countProduct) && $countProduct <= config('admin.paginate')) $paginate = $countProduct;
         else $paginate = config('admin.paginate');
-        $products = $products->paginate($paginate);
+        $products = $products->latest()->paginate($paginate);
 
         if(!empty($this->idProduct)) {
             $this->productDetail = Product::find($this->idProduct);

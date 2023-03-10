@@ -186,7 +186,7 @@
                     </li> --}}
 
                     <li class="nav__dropdown">
-                        <a href="{{route('blog.index')}}">tin tức</a>
+                        <a href="{{route('blog.index')}}">blog</a>
                         <ul class="nav__dropdown-menu">
                             @foreach($blogCategories as $blogCategory)
                             <li>
@@ -209,7 +209,7 @@
                                 <a href="{{route('admin.product')}}">Sản phẩm</a>
                                 <a href="{{route('admin.product.category')}}">Danh mục</a>
                                 <a href="{{route('admin.brand')}}">Hãng</a>
-                                <a href="{{route('admin.blog.index')}}">Tin tức</a>
+                                <a href="{{route('admin.blog.index')}}">Blog</a>
                                 <a href="{{route('admin.order')}}">Đơn hàng</a>
                                 @if(Auth::user()->hasRole('super-admin'))
                                 <a href="{{route('admin.user')}}">Tài khoản</a>

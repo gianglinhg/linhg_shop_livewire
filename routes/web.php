@@ -6,7 +6,7 @@ use App\Http\Controllers\TestController;
 
 use App\Http\Controllers\Client\MainController;
 use App\Http\Controllers\Client\BlogController;
-use App\Http\Controllers\Client\PaymentController;
+use App\Http\Controllers\Client\CheckoutController;
 
 use App\Http\Controllers\Admin\AdminBlogController;
 
@@ -29,6 +29,7 @@ use App\Http\Livewire\Admin\AdminBlogCommentComponent;
 use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderHistoryComponent;
 use App\Http\Livewire\Admin\AdminUserComponent;
+use App\Http\Livewire\Admin\AdminUser2Component;
 use App\Http\Livewire\Admin\AdminRoleComponent;
 use App\Http\Livewire\Admin\AdminPermissionComponent;
 
@@ -39,16 +40,17 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
     Route::get('/', [MainController::class,'home']);
     Route::get('/contact', [MainController::class,'contact'])->name('contact');
     Route::get('/about', [MainController::class,'about'])->name('about');
-    Route::get('/cart.html', CartComponent::class)->name('cart');
+    Route::get('/cart', CartComponent::class)->name('cart');
     Route::get('/wishlist', WishlistComponent::class)->name('wishlist');
-    Route::get('/checkout', CheckoutComponent::class)->name('checkout');
+    Route::get('/checkout', [CheckoutController::class,'index'])->name('checkout');
+    Route::post('/checkout-store', [CheckoutController::class,'store'])->name('checkout.store');
     Route::get('/shop', ShopComponent::class)->name('shop.index');
     Route::get('/shop/{slug}.html', ProductDetailComponent::class)->name('shop.detail');
     Route::get('/blog', [BlogController::class,'index'])->name('blog.index');
     Route::get('/blog/{slug}.html', [BlogController::class,'read'])->name('blog.read');
     Route::get('/test',[TestController::class,'test'])->name('test');
 
-    Route::get('vnpay-payment',[PaymentController::class, 'vnpay'])->name('vnpay-payment');
+    Route::get('store-vnpay',[CheckoutController::class, 'storeVnpay'])->name('store-vnpay');
 
 
 /* TODO:ADMIN */
@@ -62,12 +64,13 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
         Route::get('/brand',AdminBrandComponent::class)->name('brand');
         Route::prefix('blog')->name('blog.')->group(function(){
             Route::get('/',[AdminBlogController::class,'index'])->name('index');
-            Route::get('/add',[AdminBlogController::class,'create'])->name('add');
+            Route::get('/create',[AdminBlogController::class,'create'])->name('create');
             Route::post('/store',[AdminBlogController::class,'store'])->name('store');
-            Route::get('/edit/{id}',[AdminBlogController::class,'edit'])->name('edit');
+            Route::get('/{id}/edit',[AdminBlogController::class,'edit'])->name('edit');
             Route::post('/update',[AdminBlogController::class,'update'])->name('update');
-            Route::post('/destroy/{id}',[AdminBlogController::class,'destroy'])->name('destroy');
+            Route::post('/{id}/destroy',[AdminBlogController::class,'destroy'])->name('destroy');
         });
+        // Route::resource('blog', AdminBlogController::class);
         Route::get('/blog-comment',AdminBlogCommentComponent::class)->name('blog.comment');
         Route::get('/blog-category',AdminBlogCategoryComponent::class)->name('blog.category');
         Route::get('/order',AdminOrderComponent::class)->name('order');

@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{++$i}}</td>
                             <td>
-                                <b>{{$blogComment->name}}</b>
+                                <b>{{$blogComment->user->name}}</b>
                             </td>
                             <td class="content-break">{{$blogComment->messages}}</td>
                             <td>

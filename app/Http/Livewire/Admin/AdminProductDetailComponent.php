@@ -16,8 +16,9 @@ class AdminProductDetailComponent extends Component
     public $product_qty;
 
     public $form = [];
-    public $keyword;
-    public $line = 1;
+
+    public $q;
+    protected $queryString = ['q'];
 
     protected $rules = [
         'form.product_id' => 'required',
@@ -84,8 +85,8 @@ class AdminProductDetailComponent extends Component
         $products_has_detail = Product::distinct()
             ->join('product_details', 'products.id', '=', 'product_details.product_id')
             ->select('products.*');
-        if(!empty($this->keyword)){
-            $products_has_detail = $products_has_detail->where('name','like', '%'.$this->keyword.'%');
+        if(!empty($this->q)){
+            $products_has_detail = $products_has_detail->where('name','like', '%'.$this->q.'%');
         }
         $products_has_detail= $products_has_detail->paginate(config('admin.paginate'));
         $products = Product::all();

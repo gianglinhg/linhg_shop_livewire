@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="col-sm-4 form-group mb-0 float-right">
-                <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="q">
+                <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="keyword">
             </div>
             <div class="table-responsive col-sm-12 mt-2">
                 <table id="mainTable" class="table table-striped m-b-0" style="cursor: pointer;">
@@ -12,8 +12,6 @@
                             <th style="width: 10%">Ảnh đại diện</th>
                             <th>Tên</th>
                             <th>Email</th>
-                            <th>Vai trò</th>
-                            <th>Quyền</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -33,35 +31,9 @@
                                 <b>{{$user->name}}</b>
                             </td>
                             <td>{{$user->email}}</td>
-                            <td>
-                                @if(count($user->roles) > 0)
-                                @foreach($user->roles as $user_role)
-                                @if($user_role->name == 'super-admin')
-                                <span class="bg-success p-2 m-2 rounded text-white">{{$user_role->name}}
-                                </span>
-                                @else
-                                <span class="bg-danger p-2 m-2 rounded text-white"
-                                    wire:click="removeRole({{$user->id}},{{$user_role->id}})">{{$user_role->name}}
-                                </span>
-                                @endif
-                                @endforeach
-                                @else
-                                Không có
-                                @endif
-                            </td>
-                            <td>
-                                @if(count($user->permissions) > 0)
-                                @foreach($user->permissions as $user_permission)
-                                <span class="bg-danger p-2 m-2 rounded text-white"
-                                    wire:click="revokePermission({{$user->id}},{{$user_permission->id}})">{{$user_permission->name}}
-                                </span>
-                                @endforeach
-                                @else
-                                Không có
-                                @endif
-                            </td>
                             <td style="font-size:18px ">
-                                <a href="#" class="text-primary me-2" wire:click.prevent='showFormEdit({{$user->id}})'>
+                                <a href="#" class="text-primary me-2"
+                                    wire:click.prevent='showPermission({{$user->id}})'>
                                     <i class="mdi mdi-account-key"></i>
                                 </a>
                                 <a href="#" class="text-danger me-2" wire:click.prevent='showDeleteUser({{$user->id}})'>
@@ -85,60 +57,87 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        wire:ignore.self>
+    @if($isPermission)
+    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form>
                     <div class="modal-header">
                         <div class="modal-title">
-                            @if($editMode)
-                            <h1 class="modal-title" id="exampleModalLabel">Cấp quyền </h1>
-                            @else
-                            <h1 class="modal-title" id="exampleModalLabel">Thêm</h1>
-                            @endif
+                            <h1 class="modal-title" id="exampleModalLabel">{{$user->name}}</h1>
                         </div>
                     </div>
-                    <div class="modal-body">
-                        @if($editMode)
-                        <div class="row form-group">
-                            <label for="name" class="col-md-2 text-md-right col-form-label">Vai trò</label>
-                            <div class="col-md-10 col-xl-8">
-                                <select name="role" id="role" class="form-control" wire:model="role">
-                                    <option value="0">Roles</option>
-                                    @foreach($roles as $key => $role)
-                                    <option value="{{$role->name}}">
-                                        {{$role->name}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                                @if(session()->has('msgRole'))
-                                <span class="text-success">{{session()->get('msgRole')}}</span>
-                                @endif
+                    <form>
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Vai trò</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($roles as $role)
+                                            {{dd($user)}}
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox checkbox-success checkbox-circle">
+                                                        <input id="{{$role->name}}" type="checkbox"
+                                                            @if($user->hasRole($role->name)) checked="" @endif
+                                                        name="role[]" value="{{$role->name}}" wire:model='role'>
+                                                        <label for="{{$role->name}}">
+                                                            {{$role->name}}
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6">
+                                    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Quyền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($permissions as $permission)
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox checkbox-success checkbox-circle">
+                                                        <input id="{{$permission->name}}" type="checkbox"
+                                                            {{$user->hasDirectPermission($permission->name)
+                                                        ?
+                                                        "checked=''" : ""}}
+                                                        name="permission[]" value="{{$permission->name}}"
+                                                        wire:model='permission'>
+                                                        <label for="{{$permission->name}}">
+                                                            {{$permission->name}}
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <label for="name" class="col-md-2 text-md-right col-form-label">Quyền</label>
-                            <div class="col-md-10 col-xl-8">
-                                <select name="permission" id="permission" class="form-control" wire:model="permission">
-                                    <option value="0">Permission</option>
-                                    @foreach($permissions as $key => $permission)
-                                    <option value="{{$permission->name}}">
-                                        {{$permission->name}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                                @if(session()->has('msgPermission'))
-                                <span class="text-success">{{session()->get('msgPermission')}}</span>
-                                @endif
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary"
+                                wire:click.prevent="storePermission">Lưu</button>
                         </div>
-                        @endif
-                    </div>
+                    </form>
                 </form>
             </div>
         </div>
     </div>
+    @endif
     @if(session()->has('message'))
     <div class="modal" id="messageModal">
         <div class="modal-dialog">

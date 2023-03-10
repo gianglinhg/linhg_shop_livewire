@@ -46,7 +46,7 @@ class AdminOrderComponent extends Component
     }
     public function render()
     {
-        $orders = Order::whereNotIn('order_status',['Đã hoàn thành'])
+        $orders = Order::where('order_status','!=','Đã hoàn thành')
         ->latest()->paginate(config('admin.paginate'));
         return view('livewire.admin.admin-order-component',compact('orders'))
         ->layout('layouts.admin')

@@ -23,6 +23,8 @@
 <link rel="apple-touch-icon" sizes="72x72" href="{{asset('/template/client/img/apple-touch-icon-72x72.png')}}">
 <link rel="apple-touch-icon" sizes="114x114" href="{{asset('/template/client/img/apple-touch-icon-114x114.png')}}">
 
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.8.0/dist/alpine.js" defer></script>
+
 <!-- Scripts -->
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <!-- Styles -->

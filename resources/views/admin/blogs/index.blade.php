@@ -6,7 +6,7 @@
       <input type="search" placeholder="Tìm kiếm" class="form-control">
     </div>
     <div class="col-sm-8 mt-sm-0 mt-1 main-btn">
-      <a href="{{route('admin.blog.add')}}"
+      <a href="{{route('admin.blog.create')}}"
         class="btn btn-inverse waves-effect waves-light m-b-5 d-flex justify-content-end">
         <i class="mdi mdi-plus-circle"></i>
         <span>Thêm</span>

@@ -1,12 +1,11 @@
 <div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="col-sm-4 form-group mb-0 float-right">
+            {{-- <div class="col-sm-4 form-group mb-0 float-right">
                 <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="keyword">
-            </div>
-            <div class="col-sm-8 mt-sm-0 mt-1 main-btn">
-                <button class="btn btn-primary waves-effect waves-light m-b-5 d-flex justify-content-end"
-                    wire:click.prevent='showFormAdd'>
+            </div> --}}
+            <div style="display: flex; justify-content: flex-end">
+                <button class="btn btn-primary waves-effect waves-light m-b-5" wire:click.prevent='showFormAdd'>
                     <i class="mdi mdi-plus-circle"></i>
                     <span>Thêm</span>
                 </button>

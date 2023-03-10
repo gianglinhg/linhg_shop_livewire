@@ -55,19 +55,27 @@
 
     <div class="col-md-4">
       <div class="card-box">
-        <h4 class="header-title m-t-0 m-b-30">Messages</h4>
-
+        <h4 class="header-title m-t-0 m-b-30">Sản phẩm đã hết hàng</h4>
         <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
           <div class="inbox-widget slimscroll-alt"
             style="min-height: 302px; overflow: hidden; width: auto; height: 250px;">
+            @foreach($products as $product)
             <a href="#">
               <div class="inbox-item">
                 <div class="inbox-item-img"><img src="assets/images/users/avatar-1.jpg" class="img-circle" alt=""></div>
-                <p class="inbox-item-author">Chadengle</p>
-                <p class="inbox-item-text">Hey! there I'm available...</p>
-                <p class="inbox-item-date">13:40 PM</p>
+                <p class="inbox-item-author">{{$product->name}}</p>
+                <p class="inbox-item-text">
+                  <span class="mr-3">{{number_format($product->price,0)}}VNĐ</span>
+                  @if($product->discount)
+                  <span style="text-decoration: line-through;">
+                    {{number_format($product->discount,0)}}VNĐ
+                  </span>
+                  @endif
+                </p>
+                {{-- <p class="inbox-item-date">13:40 PM</p> --}}
               </div>
             </a>
+            @endforeach
           </div>
           <div class="slimScrollBar"
             style="background: rgb(152, 166, 173); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 182.774px;">
@@ -76,39 +84,54 @@
             style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;">
           </div>
         </div>
-
       </div> <!-- end card -->
     </div>
     <!-- end col -->
 
     <div class="col-md-8">
       <div class="card-box">
-        <h4 class="header-title m-t-0 m-b-30">Người dùng gần đây</h4>
+        <h4 class="header-title m-t-0 m-b-30">Đơn hàng chưa xử lý</h4>
 
         <div class="table-responsive">
-          <table class="table table table-hover m-0">
+          <table id="mainTable" class="table table-striped m-b-0" style="cursor: pointer;">
             <thead>
               <tr>
-                <th></th>
-                <th>Tên</th>
-                <th>Số điện thoại</th>
-                <th>Vị trí</th>
-                <th>Ngày </th>
+                <th>#</th>
+                <th>Mã đơn hàng</th>
+                <th>Khách hàng</th>
+                <th>Trạng thái</th>
+                <th>Tổng tiền</th>
               </tr>
             </thead>
             <tbody>
+              @forelse($orders as $key => $order)
               <tr>
-                <th>
-                  <img src="template/assets/images/users/avatar-6.jpg" alt="user" class="thumb-sm img-circle">
-                </th>
+                <td>{{$key+1}}</td>
+                <td>{{$order->order_code}}</td>
                 <td>
-                  <h5 class="m-0">Louis Hansen</h5>
-                  <p class="m-0 text-muted font-13"><small>Web designer</small></p>
+                  <strong>{{$order->customer->last_name. ' '.$order->customer->first_name}}</strong>
+                  {{-- <strong>{{$order->customer->first_name}}</strong> --}}
                 </td>
-                <td>+12 3456 789</td>
-                <td>USA</td>
-                <td>07/08/2016</td>
+                <td>
+                  <button class="btn waves-effect waves-light w-xs btn-sm m-b-5
+                            @if($order->order_status == 'Chờ xác nhận')
+                            btn-danger
+                            @elseif($order->order_status == 'Đã xác nhận')
+                            btn-warning
+                            @elseif($order->order_status == 'Đã thanh toán')
+                            btn-teal
+                            @else btn-purple
+                            @endif ">
+                    {{$order->order_status ?? 'Chờ xác nhận'}}
+                  </button>
+                </td>
+                <td>{{number_format($order->total, 0)}}VNĐ</td>
               </tr>
+              @empty
+              <tr>
+                <td colspan="5">Chưa có dữ liệu cần thiết</td>
+              </tr>
+              @endforelse
             </tbody>
           </table>
 

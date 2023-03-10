@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="quantity">
-                            <label>Quantity</label>
+                            <label>Số lượng</label>
                             <input name="quantity" id="quantity__select" class="quantity__select"
                                 wire:model.defer='quantity'>
                         </div>
@@ -116,25 +116,25 @@
                             <a href="#" class="btn btn-lg btn-color product-single__add-to-cart"
                                 wire:click.prevent="addToCart">
                                 <i class="ui-bag"></i>
-                                <span>Add to Cart</span>
+                                <span>Thêm vào giỏ</span>
                             </a>
                         </div>
 
                         <div class="col">
                             @php
-                            $wiItem = Cart::instance('wishlist')->content()->pluck('id');
+                            $wishItem = Cart::instance('wishlist')->content()->pluck('id');
                             @endphp
-                            @if($wiItem->contains($product->id))
+                            @if($wishItem->contains($product->id))
                             <a href="#" class="btn btn-lg btn-dark product-single__add-to-wishlist wishlisted"
                                 wire:click.prevent="removeFromWishlist({{$product->id}})">
                                 <i class="mdi mdi-heart" style="color:#ec2424;"></i>
-                                <span>Wishlist</span>
+                                <span>Yêu thích</span>
                             </a>
                             @else
                             <a href="#" class="btn btn-lg product-single__add-to-cart"
                                 wire:click.prevent="addToWishList({{$product->id}}, '{{$product->name}}', {{$product->price}})">
                                 <i class="ui-heart"></i>
-                                <span>Wishlist</span>
+                                <span>Yêu thích</span>
                             </a>
                             @endif
                         </div>
@@ -283,19 +283,19 @@
                         <div class="product__actions">
                             <a href="#" class="product__quickview">
                                 <i class="ui-eye"></i>
-                                <span>Quick Detail</span>
+                                <span>Xem nhanh</span>
                             </a>
-                            @if($wiItem->contains($product->id))
+                            @if($wishItem->contains($product->id))
                             <a href="#" class="product__add-to-wishlist wishlisted"
                                 wire:click.prevent="removeFromWishlist({{$product->id}})">
                                 <i class="mdi mdi-heart"></i>
-                                <span>Wishlist</span>
+                                <span>Yêu thích</span>
                             </a>
                             @else
                             <a href="#" class="product__add-to-wishlist"
                                 wire:click.prevent="addToWishList({{$product->id}}, '{{$product->name}}', {{$product->price}})">
                                 <i class="ui-heart"></i>
-                                <span>Wishlist</span>
+                                <span>Yêu thích</span>
                             </a>
                             @endif
                         </div>

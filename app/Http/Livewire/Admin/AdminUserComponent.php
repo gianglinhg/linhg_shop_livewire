@@ -21,6 +21,9 @@ class AdminUserComponent extends Component
     public $role;
     public $permission;
 
+    public $q;
+    protected $queryString = ['q'];
+
     public function showDeleteUser($id){
         $this->idUser = $id;
         $this->dispatchBrowserEvent('delete');
@@ -62,7 +65,7 @@ class AdminUserComponent extends Component
                 }
             })
             ->get();
-        }else $this->roles = Role::whereNotIn('name', ['super-admin'])->get();
+        }else $this->roles = Role::where('name','!=', 'super-admin')->get();
     }
     public function updated(){
         if(!empty($this->role)){
@@ -86,9 +89,15 @@ class AdminUserComponent extends Component
     }
     public function render()
     {
-        return view('livewire.admin.admin-user-component',[
-            'users' => User::with('roles','permissions')->latest()->paginate(config('admin.paginate'))
-        ])
+        $roles = Role::where('name', '!=', 'super-admin')->get();
+        $users = User::with('roles','permissions');
+            if($this->q)
+                $users = $users->where('name','like', '%'.$this->q.'%');
+        $users = $users->whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'super-admin');
+        })->paginate(config('admin.paginate'));
+
+        return view('livewire.admin.admin-user-component', compact('users'))
         ->layout('layouts.admin')
         ->layoutData(['title'=>'Thành viên']);
     }
