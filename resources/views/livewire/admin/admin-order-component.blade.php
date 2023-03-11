@@ -47,6 +47,7 @@
                                     btn-warning
                                     @elseif($order->order_status == 'Đã thanh toán')
                                     btn-teal
+                                    @else btn-info
                                     @endif ">
                                     {{$order->order_status ?? 'Chờ xác nhận'}}
                                 </button>

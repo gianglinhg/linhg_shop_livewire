@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 <meta name="author" content="Coderthemes">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{asset('/template/assets/images/favicon.png')}}">
@@ -31,6 +32,10 @@
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css" />
+<!-- Ajax -->
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+  integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" defer></script> --}}
 @livewireStyles
 <style>
   .scroll-modal {
@@ -62,6 +67,11 @@
   .ck-content .image {
     max-width: 80%;
     margin: 20px auto;
+  }
+
+  .permission {
+    display: inline-block;
+    margin: 2px 0;
   }
 </style>
 @stack('styles')

@@ -13,7 +13,7 @@
                         <tr>
                             <th>#</th>
                             <th>Tên</th>
-                            <th>Quyền</th>
+                            <th width="40%">Quyền</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -28,8 +28,9 @@
                             @if(count($role->permissions) > 0)
                             <td>
                                 @foreach($role->permissions as $role_permission)
-                                <span class="bg-danger p-2 rounded text-white"
-                                    wire:click="revokePermission({{$role->id}},{{$role_permission->id}})">{{$role_permission->name}}</span>
+                                <p class="bg-danger p-2 rounded text-white permission"
+                                    wire:click="revokePermission({{$role->id}},{{$role_permission->id}})">
+                                    {{$role_permission->name}}</p>
                                 @endforeach
                             </td>
                             @else

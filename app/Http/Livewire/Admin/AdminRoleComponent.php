@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 
 class AdminRoleComponent extends Component
 {
+    use WithPagination;
     public $editMode = false;
     public $name;
     public $role_permission;
@@ -53,18 +54,16 @@ class AdminRoleComponent extends Component
             ->get();
         }else $this->permissions = Permission::all();
     }
-    public function updated(){
-        if(!empty($this->role_permission)){
-            $this->role->givePermissionTo($this->role_permission);
-            session()->flash('msgSpatie','Đã thêm');
-        }
-    }
+
     public function revokePermission(Role $role, Permission $permission){
         $role->revokePermissionTo($permission);
         session()->flash('message','Đã thu hồi');
     }
     public function storeRoleEdit(){
-        dd(123);
+        if(!empty($this->role_permission)){
+            $this->role->givePermissionTo($this->role_permission);
+            session()->flash('msgSpatie','Đã thêm');
+        }
         $this->role->update([
             'name' => $this->name
         ]);
@@ -87,7 +86,7 @@ class AdminRoleComponent extends Component
         return view('livewire.admin.admin-role-component',compact('roles'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Quyền truy cập',
+            'subtitle' => 'Tài khoản',
             'title'=>'Vai trò người dùng'
         ]);
     }

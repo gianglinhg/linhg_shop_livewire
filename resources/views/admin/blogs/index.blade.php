@@ -7,7 +7,7 @@
     </div>
     <div class="col-sm-8 mt-sm-0 mt-1 main-btn">
       <a href="{{route('admin.blog.create')}}"
-        class="btn btn-inverse waves-effect waves-light m-b-5 d-flex justify-content-end">
+        class="btn btn-primary waves-effect waves-light m-b-5 d-flex justify-content-end">
         <i class="mdi mdi-plus-circle"></i>
         <span>Thêm</span>
       </a>
@@ -20,6 +20,7 @@
             <th>Hình ảnh</th>
             <th width='55%' class="text-center">Tin tức</th>
             <th>Loại</th>
+            <th>Trạng thái</th>
             <th>Thao tác</th>
           </tr>
         </thead>
@@ -41,6 +42,13 @@
               </a>
             </td>
             <td>{{$blog->blogCategory->name}}</td>
+            <td>
+              <button
+                class="btn {{$blog->featured ? 'btn-success' : 'btn-danger'}} waves-effect waves-light w-xs btn-sm m-b-5 btn-featured"
+                data-id="{{$blog->id}}" data-featured="{{$blog->featured}}">
+                {{$blog->featured ? 'Hiện' : 'Ẩn'}}
+              </button>
+            </td>
             <td style="font-size:18px; display:flex;gap:5px">
               <a href="{{route('admin.blog.edit',[$blog->id])}}" class="text-primary me-2">
                 <i class="mdi mdi-pencil"></i>
@@ -71,3 +79,35 @@
 </div>
 @endif
 @endsection
+@push('scripts')
+<script>
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $('.btn-featured').on('click',function(){
+    const id = $(this).data('id');
+    const featured = $(this).data('featured');
+    $.ajax({
+            url: '{{ route("admin.blog.change-featured") }}',
+            method: 'POST',
+            data: {
+                id: id,
+                featured: featured,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('.btn-featured[data-id="' + id + '"]').data('featured', featured);
+                    $('.btn-featured[data-id="' + id + '"]').toggleClass('btn-success btn-danger');
+                    $('.btn-featured[data-id="' + id + '"]').text(featured == 1 ? 'Hiện' : 'Ẩn');
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            },
+        })
+  })
+</script>
+@endpush

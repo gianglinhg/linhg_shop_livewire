@@ -9,6 +9,8 @@ use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\CheckoutController;
 
 use App\Http\Controllers\Admin\AdminBlogController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\UserImpersonateController;
 
 use App\Http\Livewire\Client\QuickProductDetailComponent;
 use App\Http\Livewire\Client\ShopComponent;
@@ -17,7 +19,6 @@ use App\Http\Livewire\Client\WishlistComponent;
 use App\Http\Livewire\Client\ProductDetailComponent;
 use App\Http\Livewire\Client\CheckoutComponent;
 
-use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminProductDetailComponent;
 use App\Http\Livewire\Admin\AdminProductCommentComponent;
@@ -49,14 +50,14 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
     Route::get('/blog', [BlogController::class,'index'])->name('blog.index');
     Route::get('/blog/{slug}.html', [BlogController::class,'read'])->name('blog.read');
     Route::get('/test',[TestController::class,'test'])->name('test');
-
     Route::get('store-vnpay',[CheckoutController::class, 'storeVnpay'])->name('store-vnpay');
+
 
 
 /* TODO:ADMIN */
 
-    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
-        Route::get('/',AdminDashboardComponent::class)->name('dashboard');
+    Route::middleware('auth','admin')->prefix('admin')->name('admin.')->group(function(){
+        Route::get('/',[AdminDashboardController::class,'index'])->name('dashboard');
         Route::get('/product',AdminProductComponent::class)->name('product');
         Route::get('/products-detail',AdminProductDetailComponent::class)->name('product.detail');
         Route::get('/products-comment',AdminProductCommentComponent::class)->name('product.comment');
@@ -68,28 +69,34 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
             Route::post('/store',[AdminBlogController::class,'store'])->name('store');
             Route::get('/{id}/edit',[AdminBlogController::class,'edit'])->name('edit');
             Route::post('/update',[AdminBlogController::class,'update'])->name('update');
+            Route::post('/change-featured',[AdminBlogController::class,'change'])->name('change-featured');
             Route::post('/{id}/destroy',[AdminBlogController::class,'destroy'])->name('destroy');
         });
-        // Route::resource('blog', AdminBlogController::class);
         Route::get('/blog-comment',AdminBlogCommentComponent::class)->name('blog.comment');
         Route::get('/blog-category',AdminBlogCategoryComponent::class)->name('blog.category');
-        Route::get('/order',AdminOrderComponent::class)->name('order');
-        Route::get('/order-finished',AdminOrderHistoryComponent::class)->name('order-finished');
+        Route::group(['middleware' => ['role:super-admin|manager-order']], function(){
+            Route::get('/order',AdminOrderComponent::class)->name('order');
+            Route::get('/order-finished',AdminOrderHistoryComponent::class)->name('order-finished');
+        });
         Route::group(['middleware' => ['role:super-admin']], function () {
             Route::get('/user',AdminUserComponent::class)->name('user');
             Route::get('/role',AdminRoleComponent::class)->name('role');
             Route::get('/permission',AdminPermissionComponent::class)->name('permission');
+            Route::get('impersonate/{id}',[UserImpersonateController::class,'impersonate'])
+                ->name('impersonate');
+            });
         });
+        Route::get('impersonate_leave',[UserImpersonateController::class,'impersonate_leave'])
+            ->name('impersonate_leave');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
+    require __DIR__.'/auth.php';

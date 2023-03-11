@@ -25,7 +25,11 @@ class AdminBlogCommentComponent extends Component
         $this->dispatchBrowserEvent('message');
         $this->reset();
     }
-
+    public function changeFeatured($featured, $blog_comment_id){
+        $comment = BlogComment::findOrFail($blog_comment_id);
+        $comment->featured = $featured ? 0 : 1;
+        $comment->save();
+    }
     public function render()
     {
         $blogComments = BlogComment::latest()->paginate(config('admin.paginate'));

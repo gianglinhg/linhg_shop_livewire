@@ -33,16 +33,11 @@
                             <td>
                                 <h2>{{$blogCategory->name}}</h2>
                             </td>
-                            <td>
-                                @if($blogCategory->featured)
-                                <button class="btn btn-success waves-effect waves-light w-xs btn-sm m-b-5">
-                                    Hiện
+                            <td wire:click.prevent='changeFeatured({{$blogCategory->featured}},{{$blogCategory->id}})'>
+                                <button
+                                    class="btn {{$blogCategory->featured ? 'btn-success' : 'btn-danger'}} waves-effect waves-light w-xs btn-sm m-b-5">
+                                    {{$blogCategory->featured ? 'Hiện' : 'Ẩn'}}
                                 </button>
-                                @else
-                                <button class="btn btn-danger waves-effect waves-light w-xs btn-sm m-b-5">
-                                    Ẩn
-                                </button>
-                                @endif
                             </td>
                             <td style="font-size:18px ">
                                 <a href="#" class="text-primary me-2"

@@ -25,7 +25,12 @@ class AdminProductCommentComponent extends Component
         $this->dispatchBrowserEvent('message');
         $this->reset();
     }
-
+    public function changeFeatured($featured, $comment_id ){
+        $comment = ProductComment::findOrFail($comment_id);
+        $comment->update([
+            'featured' => $featured ? 0 : 1,
+        ]);
+    }
     public function render()
     {
         $productComments = ProductComment::latest()->paginate(config('admin.paginate'));

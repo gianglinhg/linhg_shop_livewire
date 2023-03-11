@@ -5,15 +5,29 @@
             <!--- Sidemenu -->
             <div id="sidebar-menu">
                 <ul>
-                    <li class="menu-title">Navigation</li>
+                    <li class="menu-title">quản trị</li>
 
                     <li class="has_sub">
+
+                        @hasanyrole('admin|super-admin')
                         <a href="{{route('admin.dashboard')}}" class="waves-effect">
                             <i class="mdi mdi-view-dashboard"></i>
                             {{-- <span class="label label-success pull-right">2</span> --}}
                             <span> Dashboard </span>
                         </a>
+                        @endhasanyrole
+
+                        @role('user')
+                        <a href="#" class="waves-effect">
+                            <i class="mdi mdi-view-dashboard"></i>
+                            {{-- <span class="label label-success pull-right">2</span> --}}
+                            <span> Dashboard </span>
+                        </a>
+                        @endrole
+
                     </li>
+
+                    @hasanyrole('manager-products|super-admin')
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="fa fa-product-hunt"></i>
@@ -21,38 +35,51 @@
                             <span> Sản phẩm </span>
                         </a>
                         <ul class="list-unstyled" style="">
+                            @can('products list')
                             <li>
                                 <a href="{{route('admin.product')}}" class="waves-effect">
                                     <i class="mdi mdi-view-list"></i>
                                     <span>Danh sách</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('products detail')
                             <li>
                                 <a href="{{route('admin.product.detail')}}" class="waves-effect">
                                     <i class="fa fa-product-hunt"></i>
                                     <span>Số lượng</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('products category')
                             <li>
                                 <a href="{{route('admin.product.category')}}" class="waves-effect">
                                     <i class="mdi mdi-arrange-bring-forward"></i>
                                     <span>Danh mục</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('products brand')
                             <li>
                                 <a href="{{route('admin.brand')}}" class="waves-effect">
                                     <i class="mdi mdi-source-branch"></i>
                                     <span>Hãng</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('products comment')
                             <li>
                                 <a href="{{route('admin.product.comment')}}" class="waves-effect">
                                     <i class="mdi mdi-comment-text-outline"></i>
                                     <span>Bình luận</span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
+                    @endhasanyrole
+
+                    @hasanyrole('manager-blogs|super-admin')
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="mdi mdi-blogger"></i>
@@ -64,6 +91,12 @@
                                 <a href="{{route('admin.blog.index')}}" class="waves-effect">
                                     <i class="mdi mdi-view-list"></i>
                                     <span>Danh sách</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.blog.create')}}" class="waves-effect">
+                                    <i class="mdi mdi-library-plus"></i>
+                                    <span>Thêm tin tức</span>
                                 </a>
                             </li>
                             <li>
@@ -80,6 +113,9 @@
                             </li>
                         </ul>
                     </li>
+                    @endhasanyrole
+
+                    @hasanyrole('manager-orders|super-admin')
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="mdi mdi-truck-delivery"></i>
@@ -101,18 +137,20 @@
                             </li>
                         </ul>
                     </li>
+                    @endhasanyrole
+
                     @role('super-admin')
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="mdi mdi-lock-outline"></i>
                             {{-- <span class="label label-info pull-right">New</span> --}}
-                            <span> Quyền truy cập </span>
+                            <span>Tài khoản</span>
                         </a>
                         <ul class="list-unstyled" style="">
                             <li>
                                 <a href="{{route('admin.user')}}" class="waves-effect">
                                     <i class="mdi mdi-account"></i>
-                                    <span>Người dùng</span>
+                                    <span>Danh sách</span>
                                 </a>
                             </li>
                             <li>
@@ -130,15 +168,16 @@
                         </ul>
                     </li>
                     @endrole
+
                 </ul>
             </div>
             <!-- Sidebar -->
             <div class="clearfix"></div>
 
             <div class="help-box" style="position: fixed;bottom: 1rem;">
-                <h5 class="text-muted m-t-0">For Help ?</h5>
+                <h5 class="text-muted m-t-0">Bạn cần giúp đỡ ?</h5>
                 <p class=""><span class="text-custom">Email:</span> <br> linhbq89@gmail.com</p>
-                <p class="m-b-0"><span class="text-custom">Call:</span> <br> (+84) 337 229 661</p>
+                <p class="m-b-0"><span class="text-custom">Phone:</span> <br> (+84) 337 229 661</p>
             </div>
 
         </div>

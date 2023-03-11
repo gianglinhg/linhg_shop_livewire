@@ -85,6 +85,11 @@ class AdminBlogCategoryComponent extends Component
         $this->dispatchBrowserEvent('message');
         $this->reset();
     }
+    public function changeFeatured($featured, $blog_category_id){
+        $category = BlogCategory::findOrFail($blog_category_id);
+        $category->featured = $featured ? 0 : 1;
+        $category->save();
+    }
     public function render()
     {
         $blogCategories = BlogCategory::query();

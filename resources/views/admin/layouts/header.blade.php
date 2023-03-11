@@ -74,6 +74,12 @@
                         </li>
                         <li><a href="/profile"><i class="ti-user m-r-5"></i>Hồ sơ</a></li>
                         <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i>Cài đặt</a></li>
+                        @if(session()->get('impersonated_by'))
+                        <li>
+                            <a href="{{route('impersonate_leave')}}">
+                                <i class="mdi mdi-backup-restore m-r-5"></i>Trở lại</a>
+                        </li>
+                        @endif
                         {{-- <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li> --}}
                         <li>
                             <a href="{{route('logout')}}"><i class="ti-power-off m-r-5"></i>Đăng xuất</a>

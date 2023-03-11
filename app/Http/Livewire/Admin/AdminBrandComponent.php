@@ -33,6 +33,11 @@ class AdminBrandComponent extends Component
     public function updated(){
         $this->validate();
     }
+    public function changeFeatured($featured, $brand_id){
+        $brand = Brand::findOrFail($brand_id);
+        $brand->featured = $featured ? 0 : 1;
+        $brand->save();
+    }
     public function showFormAdd(){
         $this->reset();
         $this->dispatchBrowserEvent('show-form');

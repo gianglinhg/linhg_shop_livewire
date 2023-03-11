@@ -9,12 +9,15 @@ use Spatie\Permission\Models\Role;
 
 class AdminPermissionComponent extends Component
 {
+    use WithPagination;
     public $editMode = false;
     public $name;
     public $permission;
     public $roless;
     public $permission_role;
+
     protected $rules = ['name' => 'required | min:3'];
+
     public function showFormAdd(){
         $this->reset();
         $this->dispatchBrowserEvent('show-form');
@@ -38,6 +41,7 @@ class AdminPermissionComponent extends Component
                 $array[$key] =  $permission->role->name;
             }
             $this->roless = Role::whereNot(function ($query) use ($array)   {
+                $query->where('name','super-admin');
                 for ($i=0; $i < count($array) ; $i++) {
                     $query->orWhere('name', $array[$i]);
                 }
@@ -45,17 +49,13 @@ class AdminPermissionComponent extends Component
             ->get();
         }else $this->roless = Role::whereNotIn('name', ['super-admin'])->get();
     }
-    public function updated(){
-        if(!empty($this->permission_role)){
-            $this->permission->assignRole($this->permission_role);
-            session()->flash('message','Tạo vai trò thành công');
-        }
-    }
     public function removeRole(Permission $permission, Role $role){
         $permission->removeRole($role);
-        // return back()->with('message','Xóa thành công');
     }
     public function storePermissionEdit(){
+        if(!empty($this->permission_role)){
+            $this->permission->assignRole($this->permission_role);
+        }
         $this->validate();
         $this->permission->update([
             'name' => $this->name
@@ -75,7 +75,7 @@ class AdminPermissionComponent extends Component
         return view('livewire.admin.admin-permission-component',compact('permissions'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Quyền truy cập',
+            'subtitle' => 'Tài khoản',
             'title'=>'Quyền người dùng'
         ]);
     }

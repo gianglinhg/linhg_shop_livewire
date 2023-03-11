@@ -203,14 +203,22 @@
                     </li>
                     @auth
                     <li class="nav__dropdown">
-                        <a href="{{route('admin.dashboard')}}">tài khoản</a>
+                        @if(Auth::user()->hasRole(['admin','super-admin']))
+                        <a href="{{route('admin.dashboard')}}">quản trị viên</a>
+                        @else
+                        <a href="#">thành viên</a>
+                        @endif
                         <ul class="nav__dropdown-menu">
                             <li>
+                                @if(Auth::user()->hasRole(['admin','super-admin']))
                                 <a href="{{route('admin.product')}}">Sản phẩm</a>
                                 <a href="{{route('admin.product.category')}}">Danh mục</a>
                                 <a href="{{route('admin.brand')}}">Hãng</a>
                                 <a href="{{route('admin.blog.index')}}">Blog</a>
+                                @can('manager order')
                                 <a href="{{route('admin.order')}}">Đơn hàng</a>
+                                @endcan
+                                @endif
                                 @if(Auth::user()->hasRole('super-admin'))
                                 <a href="{{route('admin.user')}}">Tài khoản</a>
                                 @endif

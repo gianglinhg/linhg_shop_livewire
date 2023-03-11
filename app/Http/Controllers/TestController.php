@@ -18,4 +18,5 @@ class TestController extends Controller
         // dd($color2);
         return $query2;
     }
+    
 }

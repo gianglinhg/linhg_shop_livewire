@@ -11,8 +11,8 @@
                             <th>#</th>
                             <th>Người bình luận</th>
                             <th style="width: 40%">Nội dung</th>
-                            <th>Lượt like</th>
                             <th>Sản phẩm</th>
+                            <th>Trạng thái</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -24,17 +24,19 @@
                         <tr>
                             <td>{{++$i}}</td>
                             <td>
-                                <p><strong>{{$productComment->name}}</strong></p>
+                                <p><strong>{{$productComment->user->name}}</strong></p>
                                 <p>{{$productComment->email}}</p>
                             </td>
                             <td class="content-break">{{$productComment->messages}}</td>
-                            <td>{{$productComment->liked}}</td>
                             <td>{{$productComment->product->name}}</td>
+                            <td
+                                wire:click.prevent='changeFeatured({{$productComment->featured}},{{$productComment->id}})'>
+                                <button
+                                    class="btn {{$productComment->featured ? 'btn-success' : 'btn-danger'}} waves-effect waves-light w-xs btn-sm m-b-5">
+                                    {{$productComment->featured ? 'Hiện' : 'Ẩn'}}
+                                </button>
+                            </td>
                             <td style="font-size:18px ">
-                                {{-- <a href="#" class="text-primary me-2"
-                                    wire:click.prevent='showFormEdit({{$productComment->id}})'>
-                                    <i class="mdi mdi-pencil"></i>
-                                </a> --}}
                                 <a href="#" class="text-danger me-2"
                                     wire:click.prevent='showDeleteCmt({{$productComment->id}})'>
                                     <i class="mdi mdi-delete"></i>
@@ -44,15 +46,6 @@
                         @endforeach
                         {{$productComments->links('custom-pagination-links-view')}}
                     </tbody>
-                    <tfoot>
-                        {{-- {{$productComments->links('custom-pagination-links-view')}} --}}
-                        {{-- <tr>
-                            <th><strong>TOTAL</strong></th>
-                            <th>1290</th>
-                            <th>1420</th>
-                            <th>5</th>
-                        </tr> --}}
-                    </tfoot>
                 </table>
             </div>
         </div>

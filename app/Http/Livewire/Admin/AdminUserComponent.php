@@ -52,19 +52,18 @@ class AdminUserComponent extends Component
                 for ($i=0; $i < count($array) ; $i++) {
                     $query->orWhere('name', $array[$i]);
                 }
-            })
-            ->get();
+            })->get();
         }else $this->permissions = Permission::all();
         if(count($this->user->roles) > 0){
             foreach($this->user->roles as $key => $role_roles){
                 $array[$key] =  $role_roles->name;
             }
             $this->roles = Role::whereNot(function ($query) use ($array)   {
+                $query->where('name','super-admin');
                 for ($i=0; $i < count($array) ; $i++) {
                     $query->orWhere('name', $array[$i]);
                 }
-            })
-            ->get();
+            })->get();
         }else $this->roles = Role::where('name','!=', 'super-admin')->get();
     }
     public function updated(){
@@ -99,6 +98,9 @@ class AdminUserComponent extends Component
 
         return view('livewire.admin.admin-user-component', compact('users'))
         ->layout('layouts.admin')
-        ->layoutData(['title'=>'Thành viên']);
+        ->layoutData([
+            'title'=>'Danh sách thành viên',
+            'subtitle' => 'Tài khoản'
+        ]);
     }
 }

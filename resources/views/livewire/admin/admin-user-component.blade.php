@@ -62,7 +62,10 @@
                             </td>
                             <td style="font-size:18px ">
                                 <a href="#" class="text-primary me-2" wire:click.prevent='showFormEdit({{$user->id}})'>
-                                    <i class="mdi mdi-account-key"></i>
+                                    <i class="mdi mdi-key-change"></i>
+                                </a>
+                                <a href="{{route('admin.impersonate',[$user->id])}}" style="color:#56c456">
+                                    <i class="mdi mdi-account-switch"></i>
                                 </a>
                                 <a href="#" class="text-danger me-2" wire:click.prevent='showDeleteUser({{$user->id}})'>
                                     <i class="mdi mdi-delete"></i>
@@ -92,11 +95,7 @@
                 <form>
                     <div class="modal-header">
                         <div class="modal-title">
-                            @if($editMode)
-                            <h1 class="modal-title" id="exampleModalLabel">Cấp quyền </h1>
-                            @else
-                            <h1 class="modal-title" id="exampleModalLabel">Thêm</h1>
-                            @endif
+                            <h1 class="modal-title">Cấp quyền cho {{$user->name ?? ''}}</h1>
                         </div>
                     </div>
                     <div class="modal-body">

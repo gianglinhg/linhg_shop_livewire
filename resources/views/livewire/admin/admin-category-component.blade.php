@@ -34,15 +34,10 @@
                             <td>{{$category->sex}}</td>
                             <td>{{$category->products->count()}}</td>
                             <td wire:click.prevent='changeFeatured({{$category->featured}},{{$category->id}})'>
-                                @if($category->featured == 1)
-                                <button class="btn btn-success waves-effect waves-light w-xs btn-sm m-b-5">
-                                    Hiện
+                                <button
+                                    class="btn {{$category->featured ? 'btn-success' : 'btn-danger'}} waves-effect waves-light w-xs btn-sm m-b-5">
+                                    {{$category->featured ? 'Hiện' : 'Ẩn'}}
                                 </button>
-                                @else
-                                <button class="btn btn-danger waves-effect waves-light w-xs btn-sm m-b-5">
-                                    Ẩn
-                                </button>
-                                @endif
                             </td>
                             <td style="font-size:18px ">
                                 <a href="#" class="text-primary me-2"

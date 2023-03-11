@@ -16,7 +16,7 @@
                         <tr>
                             <th>#</th>
                             <th>Tên</th>
-                            <th>Vai trò</th>
+                            <th width="40%">Vai trò</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -31,7 +31,7 @@
                             @if(count($permission->roles) > 0)
                             <td>
                                 @foreach($permission->roles as $permission_role)
-                                <span class="bg-danger p-2 rounded text-white"
+                                <span class="bg-danger p-2 rounded text-white permission"
                                     wire:click="removeRole({{$permission->id}},{{$permission_role->id}})">{{$permission_role->name}}</span>
                                 @endforeach
                             </td>
@@ -93,11 +93,11 @@
                         </div>
                         @if($editMode)
                         <div class="row form-group">
-                            <label for="name" class="col-md-2 text-md-right col-form-label">Quyền</label>
+                            <label for="name" class="col-md-2 text-md-right col-form-label">Vai trò</label>
                             <div class="col-md-10 col-xl-8">
                                 <select name="permission_role" id="permission_role" class="form-control"
                                     wire:model="permission_role">
-                                    <option value="0">Permission</option>
+                                    <option value="0">Vui lòng chọn vai trò</option>
                                     @foreach($roless as $key => $role)
                                     <option value="{{$role->name}}">
                                         {{$role->name}}

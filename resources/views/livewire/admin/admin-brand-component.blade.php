@@ -19,6 +19,7 @@
                             <th>Tên</th>
                             <th>Slug</th>
                             <th>Số lượng</th>
+                            <th>Trạng thái</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -32,6 +33,12 @@
                             <td>{{$brand->name}}</td>
                             <td>{{$brand->slug}}</td>
                             <td>{{$brand->products->count()}}</td>
+                            <td wire:click.prevent='changeFeatured({{$brand->featured}},{{$brand->id}})'>
+                                <button
+                                    class="btn {{$brand->featured ? 'btn-success' : 'btn-danger'}} waves-effect waves-light w-xs btn-sm m-b-5">
+                                    {{$brand->featured ? 'Hiện' : 'Ẩn'}}
+                                </button>
+                            </td>
                             <td style="font-size:18px ">
                                 <a href="#" class="text-primary me-2" wire:click.prevent='showFormEdit({{$brand->id}})'>
                                     <i class="mdi mdi-pencil"></i>

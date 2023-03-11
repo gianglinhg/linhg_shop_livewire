@@ -33,6 +33,12 @@
                                     {{$blogComment->blog->title}}
                                 </a>
                             </td>
+                            <td wire:click.prevent='changeFeatured({{$blogComment->featured}},{{$blogComment->id}})'>
+                                <button
+                                    class="btn {{$blogComment->featured ? 'btn-success' : 'btn-danger'}} waves-effect waves-light w-xs btn-sm m-b-5">
+                                    {{$blogComment->featured ? 'Hiện' : 'Ẩn'}}
+                                </button>
+                            </td>
                             <td style="font-size:18px ">
                                 {{-- <a href="#" class="text-primary me-2"
                                     wire:click.prevent='showFormEdit({{$blogComment->id}})'>

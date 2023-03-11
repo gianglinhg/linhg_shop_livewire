@@ -86,6 +86,13 @@ class AdminBlogController extends Controller
         ]);
         return back()->with('message','Cập nhật tin tức thành công');
     }
+    public function change(Request $request){
+        $featured = $request->input('featured');
+        $blog = Blog::findOrFail($request->id);
+        $blog->featured = $featured ? 1 : 0 ;
+        $blog->save();
+        return response()->json(['success' => true]);
+    }
     public function destroy($id){
         if(Blog::where('id',$id)->exists()){
             Blog::findOrFail($id)->delete();
