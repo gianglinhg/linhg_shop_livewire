@@ -86,9 +86,11 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
   $('.btn-featured').on('click',function(){
-    const id = $(this).data('id');
-    const featured = $(this).data('featured');
+    var _this = $(this);
+    var id = $(this).data('id');
+    var featured = 1 - $(this).data('featured');
     $.ajax({
             url: '{{ route("admin.blog.change-featured") }}',
             method: 'POST',
@@ -99,9 +101,9 @@
             },
             success: function (response) {
                 if (response.success) {
-                    $('.btn-featured[data-id="' + id + '"]').data('featured', featured);
-                    $('.btn-featured[data-id="' + id + '"]').toggleClass('btn-success btn-danger');
-                    $('.btn-featured[data-id="' + id + '"]').text(featured == 1 ? 'Hiện' : 'Ẩn');
+                  _this.data('featured', featured);
+                  _this.text((featured == 1 ) ? 'Hiện' : 'Ẩn');
+                  _this.toggleClass('btn-success btn-danger');
                 }
             },
             error: function (response) {

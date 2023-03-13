@@ -9,13 +9,15 @@ use App\Models\Blog;
 class AdminBlogController extends Controller
 {
     public function index(){
+        $subtitle = 'Tin tức';
         $title = 'Danh sách tin tức';
         $blogs = Blog::paginate(config('admin.paginate'));
-        return view('admin.blogs.index',compact('blogs','title'));
+        return view('admin.blogs.index',compact('blogs','title','subtitle'));
     }
     public function create(){
+        $subtitle = 'Tin tức';
         $title = 'Thêm mới tin tức';
-        return view('admin.blogs.add',compact('title'));
+        return view('admin.blogs.add',compact('title','subtitle'));
     }
     public function store(Request $request){
         $request->validate([
@@ -49,11 +51,12 @@ class AdminBlogController extends Controller
         return to_route('admin.blog.index')->with('messgae','Thêm sản phẩm thành công');
     }
     public function edit($id){
+        $subtitle = 'Tin tức';
         $title = 'Sửa tin tức';
         if(Blog::where('id',$id)->exists()){
             $blog = Blog::findOrFail($id);
             request()->session()->put('blog_id', $id);
-            return view('admin.blogs.edit', compact('blog','title'));
+            return view('admin.blogs.edit', compact('blog','title','subtitle'));
         }else return redirect()->route('admin.blog.index');
     }
     public function update(Request $request){
@@ -87,10 +90,12 @@ class AdminBlogController extends Controller
         return back()->with('message','Cập nhật tin tức thành công');
     }
     public function change(Request $request){
+        $id = $request->input('id');
         $featured = $request->input('featured');
-        $blog = Blog::findOrFail($request->id);
-        $blog->featured = $featured ? 1 : 0 ;
-        $blog->save();
+        $blog = Blog::findOrFail($id);
+        $blog->update([
+            'featured' => $featured,
+        ]);
         return response()->json(['success' => true]);
     }
     public function destroy($id){

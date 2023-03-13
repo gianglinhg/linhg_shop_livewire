@@ -61,34 +61,49 @@
   @can('read-products')
   <div class="col-md-4">
     <div class="card-box">
-      <h4 class="header-title m-t-0 m-b-30">Sản phẩm đã hết hàng</h4>
+      <h4 class="header-title m-t-0 m-b-30">
+        <a href="{{route('admin.product.detail')}}">Sản phẩm đã hết hàng</a>
+      </h4>
       <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
         <div class="inbox-widget slimscroll-alt"
           style="min-height: 302px; overflow: hidden; width: auto; height: 250px;">
-          @foreach($products as $product)
+          @forelse($products as $product)
           <a href="#">
             <div class="inbox-item">
-              <div class="inbox-item-img"><img src="assets/images/users/avatar-1.jpg" class="img-circle" alt=""></div>
-              <p class="inbox-item-author">{{$product->name}}</p>
-              <p class="inbox-item-text">
-                <span class="mr-3">{{number_format($product->price,0)}}VNĐ</span>
-                @if($product->discount)
-                <span style="text-decoration: line-through;">
-                  {{number_format($product->discount,0)}}VNĐ
-                </span>
-                @endif
-              </p>
+              <div class="flex-center">
+                <div class="inbox-item-img">
+                  <img src="{{asset('/storage/products/'.$product->productImages[0]->path)}}" class="img-circle"
+                    alt="{{$product->name}}">
+                </div>
+                <div>
+                  <p class="inbox-item-author">{{$product->name}}</p>
+                  <p class="inbox-item-text">
+                    <span class="mr-3">{{number_format($product->price,0)}}VNĐ</span>
+                    @if($product->discount)
+                    <span style="text-decoration: line-through;">
+                      {{number_format($product->discount,0)}}VNĐ
+                    </span>
+                    @endif
+                  </p>
+                </div>
+              </div>
               <p class="inbox-item-date">ID:{{$product->id}}</p>
             </div>
           </a>
-          @endforeach
+          @empty
+          <a href="#">
+            <div class="inbox-item">
+              <p class="inbox-item-author">Không có dữ liệu</p>
+            </div>
+          </a>
+          @endforelse
         </div>
-        <div class="slimScrollBar"
+        {{-- <div class="slimScrollBar"
           style="background: rgb(152, 166, 173); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 182.774px;">
         </div>
         <div class="slimScrollRail"
           style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;">
-        </div>
+        </div> --}}
       </div>
     </div> <!-- end card -->
   </div>
@@ -98,7 +113,9 @@
   @can('read-orders')
   <div class="col-md-8">
     <div class="card-box">
-      <h4 class="header-title m-t-0 m-b-30">Đơn hàng chưa xử lý</h4>
+      <h4 class="header-title m-t-0 m-b-30">
+        <a href="{{route('admin.order')}}">Đơn hàng chưa xử lý</a>
+      </h4>
 
       <div class="table-responsive">
         <table id="mainTable" class="table table-striped m-b-0" style="cursor: pointer;">

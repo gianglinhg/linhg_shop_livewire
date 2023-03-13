@@ -1,6 +1,6 @@
 <?php
 return [
-  'paginate' => 10,
+  'paginate' => 8,
   'status_order' => [
     'Đã xác nhận',
     'Đã thanh toán',

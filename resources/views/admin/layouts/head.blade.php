@@ -32,6 +32,7 @@
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css" />
+
 <!-- Ajax -->
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
   integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
@@ -72,6 +73,12 @@
   .permission {
     display: inline-block;
     margin: 2px 0;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 @stack('styles')

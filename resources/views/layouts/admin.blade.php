@@ -25,6 +25,7 @@
                     @if(!empty($slot)) {{$slot}} @endif
                     @yield('admin_content')
                 </div>
+                <div id="toast--fixed"></div>
             </div>
             <!-- content -->
 

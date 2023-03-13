@@ -34,10 +34,10 @@
                     <i class="mdi mdi-plus-circle"></i>
                     <span>Thêm</span>
                 </button>
-                <a class="btn btn-success waves-effect waves-light m-b-5" href="{{route('admin.product')}}">
+                <button class="btn btn-success waves-effect waves-light m-b-5  ml-2" href="{{route('admin.product')}}">
                     <i class="mdi mdi-view-list me-1"></i>
                     <span>Danh sách</span>
-                </a>
+                </button>
             </div>
             <div class="table-responsive col-sm-12 mt-2">
                 <table id="mainTable" class="table table-striped m-b-0" style="cursor: pointer;">

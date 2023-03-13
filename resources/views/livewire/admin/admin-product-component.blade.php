@@ -54,7 +54,7 @@
                         <tr>
                             <td>{{++$i}}</td>
                             <td>
-                                {{$product->name}}
+                                <a href="{{route('shop.detail',[$product->slug])}}">{{$product->name}}</a>
                                 <button class="btn btn-info waves-effect waves-light btn-rounded btn-xs me-2"
                                     style="float: right;" wire:click.prevent='showModalProductDetail({{$product->id}})'>
                                     thêm...
