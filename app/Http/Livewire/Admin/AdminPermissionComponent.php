@@ -71,11 +71,14 @@ class AdminPermissionComponent extends Component
     }
     public function render()
     {
-        $permissions = Permission::paginate(config('admin.paginate'));
+        $permissions = Permission::orderBy('name','asc')->paginate(config('admin.paginate'));
+        $subtitle = new AdminPermissionComponent();
+        $subtitle->path = route('admin.user');
+        $subtitle->name = 'Tài khoản';
         return view('livewire.admin.admin-permission-component',compact('permissions'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Tài khoản',
+            'subtitle' => $subtitle,
             'title'=>'Quyền người dùng'
         ]);
     }

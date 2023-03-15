@@ -58,25 +58,42 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
 
     Route::middleware('auth','admin')->prefix('admin')->name('admin.')->group(function(){
         Route::get('/',[AdminDashboardController::class,'index'])->name('dashboard');
-        Route::get('/product',AdminProductComponent::class)->name('product');
-        Route::get('/products-detail',AdminProductDetailComponent::class)->name('product.detail');
-        Route::get('/products-comment',AdminProductCommentComponent::class)->name('product.comment');
-        Route::get('/category',AdminCategoryComponent::class)->name('product.category');
-        Route::get('/brand',AdminBrandComponent::class)->name('brand');
-        Route::prefix('blog')->name('blog.')->group(function(){
-            Route::get('/',[AdminBlogController::class,'index'])->name('index');
-            Route::get('/create',[AdminBlogController::class,'create'])->name('create');
-            Route::post('/store',[AdminBlogController::class,'store'])->name('store');
-            Route::get('/{id}/edit',[AdminBlogController::class,'edit'])->name('edit');
-            Route::post('/update',[AdminBlogController::class,'update'])->name('update');
-            Route::post('/change-featured',[AdminBlogController::class,'change'])->name('change-featured');
-            Route::post('/{id}/destroy',[AdminBlogController::class,'destroy'])->name('destroy');
+        Route::middleware(['role:manager-products-full|manager-product|super-admin'])->group(function(){
+            Route::get('/product',AdminProductComponent::class)->name('product')
+                ->middleware(['can:products list']);
+            Route::get('/products-detail',AdminProductDetailComponent::class)->name('product.detail')
+                ->middleware(['can:products detail']);
+            Route::get('/products-comment',AdminProductCommentComponent::class)->name('product.comment')
+                ->middleware(['can:products category']);
+            Route::get('/brand',AdminBrandComponent::class)->name('brand')
+                ->middleware(['can:products brand']);
+            Route::get('/category',AdminCategoryComponent::class)->name('product.category')
+                ->middleware(['can:products comment']);
         });
-        Route::get('/blog-comment',AdminBlogCommentComponent::class)->name('blog.comment');
-        Route::get('/blog-category',AdminBlogCategoryComponent::class)->name('blog.category');
-        Route::group(['middleware' => ['role:super-admin|manager-order']], function(){
-            Route::get('/order',AdminOrderComponent::class)->name('order');
-            Route::get('/order-finished',AdminOrderHistoryComponent::class)->name('order-finished');
+        Route::prefix('blog')->middleware(['role:manager-blogs-full|manager-blogs|super-admin'])
+            ->name('blog.')->group(function(){
+                Route::group(['middleware' => ['permission:blogs list']], function(){
+                    Route::get('/',[AdminBlogController::class,'index'])->name('index');
+                    Route::post('/change-featured',[AdminBlogController::class,'change'])
+                        ->name('change-featured');
+                });
+                Route::group(['middleware' => ['permission:blog add']], function(){
+                    Route::get('/create',[AdminBlogController::class,'create'])->name('create');
+                    Route::post('/store',[AdminBlogController::class,'store'])->name('store');
+                });
+                Route::get('/{id}/edit',[AdminBlogController::class,'edit'])->name('edit');
+                Route::post('/update',[AdminBlogController::class,'update'])->name('update');
+                Route::post('/{id}/destroy',[AdminBlogController::class,'destroy'])->name('destroy');
+                Route::get('/blog-category',AdminBlogCategoryComponent::class)->name('category')
+                    ->middleware(['can:blog category']);
+                Route::get('/blog-comment',AdminBlogCommentComponent::class)->name('comment')
+                    ->middleware(['can:blog comment']);
+        });
+
+        Route::group(['middleware' => ['role:manager-orders-full|manager-orders|super-admin']], function(){
+            Route::get('/order',AdminOrderComponent::class)->name('order')->middleware(['can:order processing']);
+            Route::get('/order-finished',AdminOrderHistoryComponent::class)->name('order-finished')
+                ->middleware(['can:order finished']);
         });
         Route::group(['middleware' => ['role:super-admin']], function () {
             Route::get('/user',AdminUserComponent::class)->name('user');

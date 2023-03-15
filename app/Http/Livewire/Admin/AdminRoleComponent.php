@@ -82,11 +82,15 @@ class AdminRoleComponent extends Component
 
     public function render()
     {
-        $roles = Role::whereNotIn('name', ['super-admin'])->paginate(config('admin.paginate'));
+        $roles = Role::where('name','!=','super-admin')->orderBy('name','asc')
+            ->paginate(config('admin.paginate'));
+        $subtitle = new AdminRoleComponent();
+        $subtitle->path = route('admin.user');
+        $subtitle->name = 'Tài khoản';
         return view('livewire.admin.admin-role-component',compact('roles'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Tài khoản',
+            'subtitle' => $subtitle,
             'title'=>'Vai trò người dùng'
         ]);
     }

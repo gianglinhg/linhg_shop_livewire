@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="col-sm-7">
                 <div class="form-group mb-0">
-                    <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="keyword">
+                    <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="q">
                 </div>
             </div>
             <div class="table-responsive col-sm-12 mt-2">

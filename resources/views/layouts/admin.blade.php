@@ -6,6 +6,8 @@
 </head>
 
 <body class="fixed-left widescreen">
+    {{--
+    <livewire:toasts /> --}}
 
     <!-- Begin page -->
     <div id="wrapper">

@@ -95,12 +95,15 @@ class AdminUserComponent extends Component
         $users = $users->whereDoesntHave('roles', function ($query) {
             $query->where('name', 'super-admin');
         })->paginate(config('admin.paginate'));
-
+        //Obj
+        $subtitle = new AdminUserComponent();
+        $subtitle->path = route('admin.user');
+        $subtitle->name = 'Tài khoản';
         return view('livewire.admin.admin-user-component', compact('users'))
         ->layout('layouts.admin')
         ->layoutData([
             'title'=>'Danh sách thành viên',
-            'subtitle' => 'Tài khoản'
+            'subtitle' => $subtitle
         ]);
     }
 }

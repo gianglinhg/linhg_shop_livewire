@@ -2,15 +2,15 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="col-sm-4 form-group mb-0 float-right">
-                <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="keyword">
+                <input type="search" placeholder="Mời nhập code" class="form-control" wire:model="code">
             </div>
-            <div class="col-sm-8 mt-sm-0 mt-1 main-btn">
-                <button class="btn btn-inverse waves-effect waves-light m-b-5 d-flex justify-content-end"
+            {{-- <div class="col-sm-8 mt-sm-0 mt-1 main-btn">
+                <button class="btn btn-warning waves-effect waves-light m-b-5 d-flex justify-content-end"
                     wire:click.prevent='showFilter'>
                     <i class="mdi mdi-filter-outline"></i>
                     <span>Lọc</span>
                 </button>
-            </div>
+            </div> --}}
             <div class="table-responsive col-sm-12 mt-2">
                 <table id="mainTable" class="table table-striped m-b-0" style="cursor: pointer;">
                     <thead>

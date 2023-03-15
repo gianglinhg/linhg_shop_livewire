@@ -11,13 +11,15 @@ class AdminCategoryComponent extends Component
     use WithPagination;
 
     public $editMode = false;
-    public $keyword;
     public $cates;
     public $idCategory;
 
     public $name;
     public $slug;
     public $sex;
+
+    public $q;
+    protected $queryString = ['q'];
 
     protected $rules = [
         'sex' => 'required',
@@ -94,14 +96,17 @@ class AdminCategoryComponent extends Component
     public function render()
     {
         $categories = ProductCategory::latest();
-        if(!empty($this->keyword)){
-            $categories = $categories->where('name','like','%'.$this->keyword.'%');
+        if(!empty($this->q)){
+            $categories = $categories->where('name','like','%'.$this->q.'%');
         }
         $categories = $categories->paginate(config('admin.paginate'));
+        $subtitle = new AdminCategoryComponent();
+        $subtitle->name = 'Sản phẩm';
+        $subtitle->path = route('admin.product');
         return view('livewire.admin.admin-category-component',compact('categories'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Sản phẩm',
+            'subtitle' => $subtitle,
             'title'=>'Danh mục sản phẩm'
         ]);
     }

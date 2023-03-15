@@ -1,3 +1,6 @@
+<script>
+  var resizefunc = [];
+</script>
 <!-- jQuery  -->
 <script src="{{asset('/template/assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('/template/assets/js/bootstrap.min.js')}}"></script>
@@ -25,6 +28,8 @@
 <script src="{{asset('/template/assets/js/jquery.app.js')}}"></script>
 
 <script src="{{asset('/template/assets/ckeditor/ckeditor.js')}}"></script>
+
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 @stack('scripts')
 @livewireScripts

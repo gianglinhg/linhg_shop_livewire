@@ -63,14 +63,12 @@ class AdminProductComponent extends Component
         'form.product_category_id' => 'required',
         'form.name' => 'required',
         'form.price' => 'required',
-        'newImages' => 'required',
     ];
     protected $messages = [
         'form.brand_id.required' => 'Chưa chọn hãng',
         'form.product_category_id.required' => 'Chưa chọn danh mục',
         'form.name.required' => 'Trường tên sản phẩm là bắt buộc',
         'form.price.required' => 'Trường giá là bắt buộc',
-        'newImages.required' => 'Chưa chọn hình ảnh cho sản phẩm',
     ];
     public function updated(){
         if(!empty($this->newImages )){
@@ -103,7 +101,11 @@ class AdminProductComponent extends Component
         $this->dispatchBrowserEvent('show-form');
     }
     public function storeProduct(){
-        $this->validate();
+        $this->validate([
+            'newImages' => 'required',
+        ],[
+            'newImages.required' => 'Chưa chọn hình ảnh cho sản phẩm',
+        ]);
         $createProduct = Product::create([
             'brand_id' => $this->form['brand_id'],
             'product_category_id' => $this->form['product_category_id'],
@@ -205,7 +207,6 @@ class AdminProductComponent extends Component
                     ProductImage::where('product_id', $idUpdatedProduct)
                     ->whereIn('path', $oldImagePaths)->delete();
 
-                    // Delete the image files
                     Storage::delete('/public/products/' . implode(',', $oldImagePaths));
                 }
                 $newImagesData = [];
@@ -284,13 +285,16 @@ class AdminProductComponent extends Component
         if(!empty($this->idProduct)) {
             $this->productDetail = Product::find($this->idProduct);
         }
+        $subtitle = new AdminProductCommentComponent();
+        $subtitle->name = 'Sản phẩm';
+        $subtitle->path = route('admin.product');
         return view('livewire.admin.admin-product-component',compact('products'),[
                 'categories' => ProductCategory::all(),
                 'brands' => Brand::all()
             ])
             ->layout('layouts.admin')
             ->layoutData([
-                'subtitle' => 'Sản phẩm',
+                'subtitle' => $subtitle,
                 'title'=>'Danh sách sản phẩm'
             ]);
     }

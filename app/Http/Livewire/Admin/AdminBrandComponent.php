@@ -11,12 +11,14 @@ class AdminBrandComponent extends Component
     use WithPagination;
 
     public $editMode = false;
-    public $keyword;
     public $bras;
     public $idBrand;
 
     public $name;
     public $slug;
+
+    public $q;
+    protected $queryString = ['q'];
 
     protected $rules = [
         'name' => 'required',
@@ -86,13 +88,16 @@ class AdminBrandComponent extends Component
     public function render()
     {
         $brands = Brand::latest();
-        if(!empty($this->keyword))
-            $brands = $brands->where('name','like','%'.$this->keyword.'%');
+        if(!empty($this->q))
+            $brands = $brands->where('name','like','%'.$this->q.'%');
         $brands = $brands->paginate(config('admin.paginate'));
+        $subtitle = new AdminBrandComponent();
+        $subtitle->name = 'Sản phẩm';
+        $subtitle->path = route('admin.product');
         return view('livewire.admin.admin-brand-component',compact('brands'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Sản phẩm',
+            'subtitle' => $subtitle,
             'title'=>'Hãng sản phẩm'
         ]);
     }

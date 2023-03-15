@@ -13,6 +13,8 @@ class AdminProductCommentComponent extends Component
 
     public $editMode = false;
     public $idProductCmt;
+    public $q;
+    protected $queryString = ['q'];
 
     public function showDeleteCmt($id){
         $this->idProductCmt = $id;
@@ -33,11 +35,17 @@ class AdminProductCommentComponent extends Component
     }
     public function render()
     {
-        $productComments = ProductComment::latest()->paginate(config('admin.paginate'));
+        $productComments = ProductComment::latest();
+        if($this->q)
+            $productComments = $productComments->where('%'.$this->q.'%');
+        $productComments = $productComments->paginate(config('admin.paginate'));
+        $subtitle = new AdminProductCommentComponent();
+        $subtitle->name = 'Sản phẩm';
+        $subtitle->path = route('admin.product');
         return view('livewire.admin.admin-product-comment-component',compact('productComments'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Sản phẩm',
+            'subtitle' => $subtitle,
             'title'=>'Bình luận sản phẩm'
         ]);
     }

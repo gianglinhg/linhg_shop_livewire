@@ -16,6 +16,9 @@ class AdminOrderComponent extends Component
     public $order_item;
     public $order_status;
 
+    public $code;
+    protected $queryString = ['code'];
+
 
     public function showModalStatus(Order $order){
         $this->reset();
@@ -46,12 +49,18 @@ class AdminOrderComponent extends Component
     }
     public function render()
     {
-        $orders = Order::where('order_status','!=','Đã hoàn thành')
+        $orders = Order::query();
+            if($this->code)
+                $orders = $orders->where('order_code','like','%'.$this->code.'%');
+        $orders = $orders->where('order_status','!=','Đã hoàn thành')
         ->latest()->paginate(config('admin.paginate'));
+        $subtile = new AdminOrderComponent();
+        $subtile->name = 'Đơn hàng';
+        $subtile->path = route('admin.order');
         return view('livewire.admin.admin-order-component',compact('orders'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Đơn hàng',
+            'subtitle' => $subtile,
             'title'=>'Đơn hàng đang xử lý'
         ]);
     }

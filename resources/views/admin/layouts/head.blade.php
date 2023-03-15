@@ -29,14 +29,8 @@
 <!-- Scripts -->
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <!-- Styles -->
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css" />
 
-<!-- Ajax -->
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
-  integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" defer></script> --}}
 @livewireStyles
 <style>
   .scroll-modal {

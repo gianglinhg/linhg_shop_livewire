@@ -18,16 +18,16 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="col-sm-4 form-group mb-0 float-right">
-                <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="keyword">
+                <input type="search" placeholder="Tìm kiếm" class="form-control" wire:model="q">
             </div>
             <div class="col-sm-8 mt-sm-0 mt-1 main-btn">
-                <button class="btn btn-warning waves-effect waves-light m-1" wire:click.prevent='showFilter'>
-                    <i class="mdi mdi-filter-outline"></i>
-                    <span>Lọc</span>
-                </button>
                 <button class="btn btn-primary waves-effect waves-light m-1" wire:click.prevent='showFormAdd'>
                     <i class="mdi mdi-plus-circle"></i>
                     <span>Thêm</span>
+                </button>
+                <button class="btn btn-warning waves-effect waves-light m-1" wire:click.prevent='showFilter'>
+                    <i class="mdi mdi-filter-outline"></i>
+                    <span>Lọc</span>
                 </button>
                 <a href="{{route('admin.product.detail')}}" class="btn btn-teal waves-effect waves-light m-1">
                     <i class="mdi mdi-information-outline"></i>
@@ -100,8 +100,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        wire:ignore.self>
+    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content scroll-modal">
                 <form enctype="multipart/form-data">
@@ -267,7 +266,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row form-group">
+                        <div wire:ignore class="row form-group">
                             <label for="content" class="col-md-2 text-md-right col-form-label">Content</label>
                             <div class="col-md-10 col-xl-8">
                                 <textarea class="form-control" name="content" id="content" rows="6"
@@ -504,6 +503,16 @@
         </div>
     </div>
     @push('scripts')
+    <script>
+        // const editor = CKEDITOR.replace('content');
+        // editor.on('change', function (event) {
+        // // console.log(event.editor.getData())
+        // @this.set('form.content', event.editor.getData());
+        // })
+    //     CKEDITOR.instances.content.on('change', function() {
+    //       @this.set('form.content', this.getData());
+    //   });
+    </script>
     <script>
         window.addEventListener('show-detail',event =>{
                 $('#detail').modal('show');

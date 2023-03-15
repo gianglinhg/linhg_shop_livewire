@@ -77,9 +77,6 @@ class AdminProductDetailComponent extends Component
         // $this->dispatchBrowserEvent('message');
         $this->reset();
     }
-    // public function addLine(){
-    //     $this->line++;
-    // }
     public function render()
     {
         $products_has_detail = Product::distinct()
@@ -90,10 +87,13 @@ class AdminProductDetailComponent extends Component
         }
         $products_has_detail= $products_has_detail->paginate(config('admin.paginate'));
         $products = Product::all();
+        $subtitle = new AdminProductDetailComponent();
+        $subtitle->name = 'Sản phẩm';
+        $subtitle->path = route('admin.product');
         return view('livewire.admin.admin-product-detail-component',compact('products_has_detail','products'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Sản phẩm',
+            'subtitle' => $subtitle,
             'title' => 'Chi tiết số lượng sản phẩm'
         ]);
     }

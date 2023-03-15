@@ -33,10 +33,13 @@ class AdminBlogCommentComponent extends Component
     public function render()
     {
         $blogComments = BlogComment::latest()->paginate(config('admin.paginate'));
+        $subtitle = new AdminBlogCommentComponent();
+        $subtitle->name = 'Tin tức';
+        $subtitle->path = route('admin.blog.index');
         return view('livewire.admin.admin-blog-comment-component',compact('blogComments'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Tin tức',
+            'subtitle' => $subtitle,
             'title' => 'Bình luận tin tức'
         ]);
     }

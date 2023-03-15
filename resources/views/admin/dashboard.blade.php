@@ -6,7 +6,7 @@
     <div class="card-box widget-box-two widget-two-primary">
       <i class="mdi mdi-chart-areaspline widget-two-icon"></i>
       <div class="wigdet-two-content">
-        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Statistics">Sản phẩm</p>
+        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Sản phẩm">Sản phẩm</p>
         <h2><span data-plugin="counterup">{{$products_count}}</span>
           <small><i class="mdi mdi-arrow-up text-success"></i></small>
         </h2>
@@ -69,25 +69,23 @@
           style="min-height: 302px; overflow: hidden; width: auto; height: 250px;">
           @forelse($products as $product)
           <a href="#">
-            <div class="inbox-item">
-              <div class="flex-center">
-                <div class="inbox-item-img">
-                  <img src="{{asset('/storage/products/'.$product->productImages[0]->path)}}" class="img-circle"
-                    alt="{{$product->name}}">
-                </div>
-                <div>
-                  <p class="inbox-item-author">{{$product->name}}</p>
-                  <p class="inbox-item-text">
-                    <span class="mr-3">{{number_format($product->price,0)}}VNĐ</span>
-                    @if($product->discount)
-                    <span style="text-decoration: line-through;">
-                      {{number_format($product->discount,0)}}VNĐ
-                    </span>
-                    @endif
-                  </p>
-                </div>
+            <div class="inbox-item flex-center">
+              <div class="inbox-item-img">
+                <img src="{{asset('/storage/products/'.$product->productImages[0]->path)}}" class="img-circle"
+                  alt="{{$product->name}}">
               </div>
-              <p class="inbox-item-date">ID:{{$product->id}}</p>
+              <div>
+                <p class="inbox-item-author">{{$product->name}}</p>
+                <p class="inbox-item-text">
+                  <span class="mr-3">{{number_format($product->price,0)}}VNĐ</span>
+                  @if($product->discount)
+                  <span style="text-decoration: line-through;">
+                    {{number_format($product->discount,0)}}VNĐ
+                  </span>
+                  @endif
+                </p>
+                <p class="inbox-item-date">ID:{{$product->id}}</p>
+              </div>
             </div>
           </a>
           @empty
@@ -135,7 +133,6 @@
               <td>{{$order->order_code}}</td>
               <td>
                 <strong>{{$order->customer->last_name. ' '.$order->customer->first_name}}</strong>
-                {{-- <strong>{{$order->customer->first_name}}</strong> --}}
               </td>
               <td>
                 <button class="btn waves-effect waves-light w-xs btn-sm m-b-5

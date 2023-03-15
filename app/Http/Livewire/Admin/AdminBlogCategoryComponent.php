@@ -15,13 +15,13 @@ class AdminBlogCategoryComponent extends Component
     public $idBlogCate;
     public $blogCategory;
 
-    public $q;
 
     public $name;
     public $slug;
     public $lang;
     public $featured;
 
+    public $q;
     protected $queryString = ['q'];
 
     protected $rules = [
@@ -96,10 +96,14 @@ class AdminBlogCategoryComponent extends Component
             if(!empty($this->q))
                 $blogCategories = $blogCategories->where('name','like', '%'.$this->q.'%');
         $blogCategories = $blogCategories->latest()->paginate(config('admin.paginate'));
+        //subtile
+        $subtitle = new AdminBlogCategoryComponent();
+        $subtitle->name = 'Tin tức';
+        $subtitle->path = route('admin.blog.index');
         return view('livewire.admin.admin-blog-category-component',compact('blogCategories'))
         ->layout('layouts.admin')
         ->layoutData([
-            'subtitle' => 'Tin tức',
+            'subtitle' => $subtitle,
             'title'=>'Danh mục tin tức'
         ]);
     }

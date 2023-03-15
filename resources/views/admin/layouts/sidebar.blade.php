@@ -27,11 +27,10 @@
 
                     </li>
 
-                    @hasanyrole('manager-products|super-admin')
+                    @hasanyrole('manager-products-full|manager-product|super-admin')
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="fa fa-product-hunt"></i>
-                            {{-- <span class="label label-info pull-right">New</span> --}}
                             <span> Sản phẩm </span>
                         </a>
                         <ul class="list-unstyled" style="">
@@ -79,43 +78,50 @@
                     </li>
                     @endhasanyrole
 
-                    @hasanyrole('manager-blogs|super-admin')
+                    @hasanyrole('manager-blogs-full|manager-blogs|super-admin')
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="mdi mdi-blogger"></i>
-                            {{-- <span class="label label-info pull-right">New</span> --}}
                             <span> Tin tức </span>
                         </a>
                         <ul class="list-unstyled" style="">
+                            @can('blogs list')
                             <li>
                                 <a href="{{route('admin.blog.index')}}" class="waves-effect">
                                     <i class="mdi mdi-view-list"></i>
                                     <span>Danh sách</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('blog add')
                             <li>
                                 <a href="{{route('admin.blog.create')}}" class="waves-effect">
                                     <i class="mdi mdi-library-plus"></i>
                                     <span>Thêm tin tức</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('blog category')
                             <li>
                                 <a href="{{route('admin.blog.category')}}" class="waves-effect">
                                     <i class="mdi mdi-box-shadow"></i>
                                     <span>Loại tin</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('blog comment')
                             <li>
                                 <a href="{{route('admin.blog.comment')}}" class="waves-effect">
                                     <i class="mdi mdi-comment-text-outline"></i>
                                     <span>Bình luận</span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
                     @endhasanyrole
 
-                    @hasanyrole('manager-orders|super-admin')
+                    @hasanyrole('manager-orders-full|manager-orders|super-admin')
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="mdi mdi-truck-delivery"></i>
@@ -123,18 +129,22 @@
                             <span> Đơn hàng </span>
                         </a>
                         <ul class="list-unstyled" style="">
+                            @can('order processing')
                             <li>
                                 <a href="{{route('admin.order')}}" class="waves-effect">
                                     <i class="mdi mdi-view-list"></i>
                                     <span>Đang xử lý</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('order finished')
                             <li>
                                 <a href="{{route('admin.order-finished')}}" class="waves-effect">
                                     <i class="mdi mdi-history"></i>
                                     <span>Đã hoàn thành</span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
                     @endhasanyrole
@@ -143,7 +153,6 @@
                     <li class="has_sub">
                         <a href="#" class="waves-effect">
                             <i class="mdi mdi-lock-outline"></i>
-                            {{-- <span class="label label-info pull-right">New</span> --}}
                             <span>Tài khoản</span>
                         </a>
                         <ul class="list-unstyled" style="">
