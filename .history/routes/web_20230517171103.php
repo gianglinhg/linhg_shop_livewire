@@ -40,7 +40,7 @@ use App\Http\Livewire\Admin\AdminPermissionComponent;
 
 Route::get('/', [MainController::class, 'home']);
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
-Route::post('/mailContact', [MainController::class, 'mailContact'])->name('mailContact');
+Route::post('/mail', [MainController::class, 'mailContact'])->name('mail');
 Route::get('/about', [MainController::class, 'about'])->name('about');
 Route::get('/cart', CartComponent::class)->name('cart');
 Route::get('/wishlist', WishlistComponent::class)->name('wishlist');

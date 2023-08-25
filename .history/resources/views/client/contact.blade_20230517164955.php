@@ -35,7 +35,7 @@
           Laravel.</p>
 
         <!-- Contact Form -->
-        <form action="{{route('mailContact')}}" method="post" id="contact-form" class="contact-form mt-30 mb-30">
+        <form id="contact-form" class="contact-form mt-30 mb-30" method="post" action="#">
           @csrf
           <div class="form-group contact-name">
             <label for="name">Tên <abbr title="required" class="required">*</abbr></label>
@@ -54,7 +54,7 @@
             <textarea id="message" class="form-control" name="message" rows="7" required="required"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-lg btn-color btn-button w-25" id="submit-message">Gửi</button>
+          <input type="submit" class="btn btn-lg btn-color btn-button w-25" value="Gửi thông báo" id="submit-message">
           <div id="msg" class="message"></div>
         </form>
       </div> <!-- end col -->
@@ -72,7 +72,7 @@
             <li class="contact-info__item">
               <h4 class="contact-info__title uppercase">Thông tin</h4>
               <ul>
-                <li><span>Phone: </span><a href="tel:+1-888-1554-456-123">0559 229 661</a></li>
+                <li><span>Phone: </span><a href="tel:+1-888-1554-456-123">0337 559 661</a></li>
                 <li><span>Email: </span><a href="mailto:linhbq89@gmail.com">linhbq89@gmail.com</a></li>
                 {{-- <li><span>Skype: </span><a href="#">ahasupport</a></li> --}}
               </ul>

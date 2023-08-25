@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class MainController extends Controller
 {
@@ -23,12 +24,10 @@ class MainController extends Controller
         $email = trim(strip_tags($arr['email']));
         $phone = trim(strip_tags($arr['phone']));
         $message = trim(strip_tags($arr['message']));
-
-        session()->put('message', $message);
         $adminEmail = 'giangvanlinhbq89@gmail.com'; //Gửi thư đến ban quản trị
         Mail::mailer('smtp')->to($adminEmail)
             ->send(new GuiEmail($name, $email, $phone, $message));
-        return redirect()->back()->with('message', 'Gửi yêu cầu thành công');
+
     }
     public function about()
     {

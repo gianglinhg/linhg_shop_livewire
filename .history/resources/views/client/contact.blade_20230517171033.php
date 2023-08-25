@@ -35,7 +35,7 @@
           Laravel.</p>
 
         <!-- Contact Form -->
-        <form action="{{route('mailContact')}}" method="post" id="contact-form" class="contact-form mt-30 mb-30">
+        <form method="post" action="{{route('mail')}}" id="contact-form" class="contact-form mt-30 mb-30" >
           @csrf
           <div class="form-group contact-name">
             <label for="name">Tên <abbr title="required" class="required">*</abbr></label>
@@ -54,7 +54,7 @@
             <textarea id="message" class="form-control" name="message" rows="7" required="required"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-lg btn-color btn-button w-25" id="submit-message">Gửi</button>
+          <input type="submit" class="btn btn-lg btn-color btn-button w-25" value="Gửi" id="submit-message">
           <div id="msg" class="message"></div>
         </form>
       </div> <!-- end col -->

@@ -35,7 +35,7 @@
           Laravel.</p>
 
         <!-- Contact Form -->
-        <form action="{{route('mailContact')}}" method="post" id="contact-form" class="contact-form mt-30 mb-30">
+        <form method="post" action="{{route('mail')}}" id="contact-form" class="contact-form mt-30 mb-30">
           @csrf
           <div class="form-group contact-name">
             <label for="name">Tên <abbr title="required" class="required">*</abbr></label>
