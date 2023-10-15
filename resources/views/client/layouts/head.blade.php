@@ -26,7 +26,6 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.8.0/dist/alpine.js" defer></script>
 
 <!-- Scripts -->
-@vite(['resources/css/app.css', 'resources/js/app.js'])
 <!-- Styles -->
 @livewireStyles
 @stack('styles')

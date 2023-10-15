@@ -27,52 +27,6 @@
 
 <script src="{{asset('/template/assets/js/modernizr.min.js')}}"></script>
 <!-- Scripts -->
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 <!-- Styles -->
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css" />
-
-@livewireStyles
-<style>
-  .scroll-modal {
-    max-height: 680px;
-    overflow-y: scroll;
-  }
-
-  .form-group .form-control {
-    font-size: 1.5rem !important;
-    border-color: #9ca1ab !important;
-    border-radius: 5px !important;
-    background-color: #fff !important;
-    line-height: 1.5rem !important;
-    padding: .5rem .75rem !important;
-    line-height: 2rem !important;
-  }
-
-  .main-btn {
-    display: flex;
-    justify-content: end;
-    gap: 2px;
-  }
-
-  /* Ck editor */
-  .ck-editor__editable[role="textbox"] {
-    min-height: 200px;
-  }
-
-  .ck-content .image {
-    max-width: 80%;
-    margin: 20px auto;
-  }
-
-  .permission {
-    display: inline-block;
-    margin: 2px 0;
-  }
-
-  .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-</style>
-@stack('styles')
