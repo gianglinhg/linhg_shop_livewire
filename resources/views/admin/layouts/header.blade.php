@@ -82,8 +82,12 @@
                         @endif
                         {{-- <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li> --}}
                         <li>
-                            <a href="{{route('logout')}}"><i class="ti-power-off m-r-5"></i>Đăng xuất</a>
-                        </li>
+                            <form action="{{ route('logout')}}" method="post">
+                                @csrf
+                            <a href="#" class="logout" onclick="event.preventDefault();
+                            this.closest('form').submit();"><i class="ti-power-off m-r-5"></i>Đăng xuất</a>
+                        </form>
+                    </li>
                     </ul>
                 </li>
             </ul> <!-- end navbar-right -->

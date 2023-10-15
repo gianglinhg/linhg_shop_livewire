@@ -180,7 +180,13 @@
           @if(Auth::user()->hasRole('super-admin'))
           <li><a href="{{route('admin.user')}}" class="sidenav__menu-link">Tài khoản</a></li>
           @endif
-          <li><a href="{{route('logout')}}" class="sidenav__menu-link">Đăng xuất</a></li>
+          <li>
+            <form action="{{ route('logout')}}" method="post">
+              @csrf
+              <a href="#" class="sidenav__menu-link" onclick="event.preventDefault();
+              this.closest('form').submit();">>Đăng xuất</a>
+          </form>
+        </li>
         </ul>
       </li>
       @endauth

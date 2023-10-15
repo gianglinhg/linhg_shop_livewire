@@ -1,10 +1,7 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Thông tin') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
+        <h4 class="header-title m-t-0">{{ __('Thông tin') }}</h4>
+        <p class="text-muted font-13 m-b-10">
             {{ __("Cập nhật thông tin và ảnh đại diện của bạn") }}
         </p>
     </header>
@@ -16,58 +13,25 @@
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
-
-        {{-- <div>
-        </div> --}}
-        <div>
+        <div class="form-group">
             <img src="{{asset('/storage/users/'.$user->avatar)}}" width="100px">
-            <x-input-label for="avatar" :value="__('Ảnh đại diện')" />
-            <x-text-input id="avatar" name="avatar" type="file" class="mt-1 block w-full" autofocus
-                autocomplete="avatar" />
+            <label for="userName">Avatar</label>
+            <input type="file" name="avatar" class="form-control" id="userName">
             <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
         </div>
-
-        <div>
-            <x-input-label for="name" :value="__('Tên')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
-                required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        <div class="form-group">
+            <label for="userName">User Name</label>
+            <input type="text" name="name" value="{{ old('name', $user->name) }}" parsley-trigger="change" required="" placeholder="Enter user name" class="form-control" id="userName">
         </div>
-
-
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
-                :value="old('email', $user->email)" required autocomplete="email" />
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="email" parsley-trigger="change" value="{{ old('name', $user->email) }}" required="" placeholder="Enter email" class="form-control" id="emailAddress">
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-            <div>
-                <p class="text-sm mt-2 text-gray-800">
-                    {{ __('Your email address is unverified.') }}
-
-                    <button form="send-verification"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {{ __('Click here to re-send the verification email.') }}
-                    </button>
-                </p>
-
-                @if (session('status') === 'verification-link-sent')
-                <p class="mt-2 font-medium text-sm text-green-600">
-                    {{ __('A new verification link has been sent to your email address.') }}
-                </p>
-                @endif
-            </div>
-            @endif
         </div>
-
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Lưu') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-            <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                class="text-sm text-gray-600">{{ __('Saved.') }}</p>
-            @endif
+        <div class="form-group text-right m-b-0">
+            <button class="btn btn-primary waves-effect waves-light" type="submit">
+                Submit
+            </button>
         </div>
     </form>
 </section>

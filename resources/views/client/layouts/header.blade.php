@@ -222,7 +222,11 @@
                                 @if(Auth::user()->hasRole('super-admin'))
                                 <a href="{{route('admin.user')}}">Tài khoản</a>
                                 @endif
-                                <a href="{{route('logout')}}">Đăng xuất</a>
+                                <form action="{{ route('logout')}}" method="post">
+                                    @csrf
+                                    <a href="#" onclick="event.preventDefault();
+                                    this.closest('form').submit();">>Đăng xuất</a>
+                                </form>
                             </li>
 
                         </ul>

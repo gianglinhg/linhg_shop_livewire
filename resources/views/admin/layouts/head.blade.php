@@ -30,3 +30,22 @@
 {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 <!-- Styles -->
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css" />
+<style>
+  .logout{
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: 400;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+    .logout:hover{
+        color: #262626;
+        text-decoration: none;
+        background-color: #f5f5f5;
+    }
+    .container{
+        max-width: 1600px;
+    }
+</style>

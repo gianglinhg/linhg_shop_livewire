@@ -3,29 +3,40 @@
         {{ $title }}
     </x-slot>
 
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Quên mật khẩu? Không có gì. Chỉ cần cho chúng tôi biết địa chỉ email của bạn và chúng tôi sẽ gửi email
-        cho bạn liên kết đặt lại mật khẩu cho phép bạn chọn một mật khẩu mới.') }}
-    </div>
-
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+    <div class="col-sm-12">
+        <div class="wrapper-page">
+            <div class="m-t-40 account-pages">
+                <div class="text-center account-logo-box">
+                    <h2 class="text-uppercase">
+                        <a href="/" class="text-success">
+                            {{-- <span><img src="template/assets/images/logo.png" alt="" height="36"></span> --}}
+                        </a>
+                    </h2>
+                    <h4 class="text-uppercase font-bold m-b-0 text-white">Sign In</h4>
+                </div>
+                <div class="account-content">
+                    <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
+                        @csrf
+                        <!-- Email Address -->
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="email" name="email" required="" value="{{ old('email') }}" placeholder="Nhập Email xác nhận" autocomplete="email">
+                            </div>
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+                        <div class="form-group account-btn text-center m-t-10">
+                            <div class="col-xs-12">
+                                <button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit">Confirm</button>
+                            </div>
+                        </div>
+                    </form>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    <div class="clearfix"></div>
+                </div>
+            </div>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Gửi email lấy lại mật khẩu') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>

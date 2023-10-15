@@ -1,17 +1,17 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        {{ $title }}
+    </x-slot>
     <div class="col-sm-12">
-
         <div class="wrapper-page">
-
             <div class="m-t-40 account-pages">
                 <div class="text-center account-logo-box">
                     <h2 class="text-uppercase">
-                        <a href="index.html" class="text-success">
-                            <span><img src="assets/images/logo.png" alt="" height="36"></span>
+                        <a href="/" class="text-success">
+                            {{-- <span><img src="assets/images/logo.png" alt="" height="36"></span> --}}
                         </a>
                     </h2>
-                    <!--<h4 class="text-uppercase font-bold m-b-0">Sign In</h4>-->
+                    <h4 class="text-uppercase text-white font-bold m-b-0">Sign Up</h4>
                 </div>
                 <div class="account-content">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -70,7 +70,7 @@
 
             <div class="row m-t-50">
                 <div class="col-sm-12 text-center">
-                    <p class="text-muted">Already have account?<a href="page-login.html" class="text-primary m-l-5"><b>Sign In</b></a></p>
+                    <p class="text-muted">Already have account?<a href="{{ route('login') }}" class="text-primary m-l-5"><b>Sign In</b></a></p>
                 </div>
             </div>
 

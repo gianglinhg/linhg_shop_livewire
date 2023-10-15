@@ -41,6 +41,7 @@
                             <th>#</th>
                             <th>Tên</th>
                             <th>Giá</th>
+                            <th>Thương hiệu</th>
                             <th>Tình trạng</th>
                             <th>Số lượng</th>
                             <th>Thao tác</th>
@@ -50,6 +51,7 @@
                         @php
                         $i = ($products->currentPage() - 1) * $products->perPage();
                         @endphp
+                        {{-- @dd($products); --}}
                         @foreach($products as $key => $product)
                         <tr>
                             <td>{{++$i}}</td>
@@ -61,7 +63,7 @@
                                 </button>
                             </td>
                             <td>{{number_format($product->price, 0)}}VNĐ</td>
-                            {{-- <td>{{\Str::currency($product->price)}}VNĐ</td> --}}
+                            <td>{{ $product->brand->name }}</td>
                             <td wire:click.prevent='changeFeatured({{$product->featured}},{{$product->id}})'>
                                 @if($product->featured == 1)
                                 <button class="btn btn-success waves-effect waves-light w-xs btn-xs m-b-3">

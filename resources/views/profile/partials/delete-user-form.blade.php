@@ -1,10 +1,8 @@
 <section class="space-y-6">
-    <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Xóa tài khoản') }}
-        </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
+    <header>
+        <h4 class="header-title m-t-0">{{ __('Xóa tài khoản') }}</h4>
+        <p class="text-muted font-13 m-b-10">
             {{ __('Sau khi xóa tài khoản, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn.
             Trước khi xóa tài khoản, vui lòng tải xuống bất kỳ dữ liệu hoặc thông tin nào bạn muốn giữ lại.') }}
         </p>
