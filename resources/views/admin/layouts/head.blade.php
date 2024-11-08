@@ -48,4 +48,8 @@
     .container{
         max-width: 1600px;
     }
+    .colors_item{
+        width: 20px;
+        height: 20px;
+    }
 </style>

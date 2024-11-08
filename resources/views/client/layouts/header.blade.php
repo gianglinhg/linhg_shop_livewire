@@ -38,7 +38,7 @@
             </ul>
 
             <!-- Promo -->
-            <p class="top-bar__promo text-center">Miễn phí ship cho mọi đơn hàng từ 1.000.000VNĐ</p>
+            <p class="text-center top-bar__promo">Miễn phí ship cho mọi đơn hàng từ 1.000.000VNĐ</p>
 
             <!-- Sign in / Wishlist / Cart -->
             <div class="top-bar__right">
@@ -222,11 +222,11 @@
                                 @if(Auth::user()->hasRole('super-admin'))
                                 <a href="{{route('admin.user')}}">Tài khoản</a>
                                 @endif
-                                <form action="{{ route('logout')}}" method="post">
+                                {{-- <form action="{{ route('logout')}}" method="post">
                                     @csrf
                                     <a href="#" onclick="event.preventDefault();
                                     this.closest('form').submit();">>Đăng xuất</a>
-                                </form>
+                                </form> --}}
                             </li>
 
                         </ul>

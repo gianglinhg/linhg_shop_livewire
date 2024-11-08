@@ -79,9 +79,9 @@
                                     @foreach($product_has_detail->productDetails as $productDetail)
                                     <tr>
                                         <td>
-                                            <a class='colors_item'
+                                            <div class='colors_item'
                                                 style=" background-color: {{$productDetail->color_code}}">
-                                            </a>
+                                            </div>
                                         </td>
                                         <td>
                                             {{$productDetail->size}}
